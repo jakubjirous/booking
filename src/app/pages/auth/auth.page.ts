@@ -11,25 +11,29 @@ import { AuthService } from '../../services/auth/auth.service';
 export class AuthPage implements OnInit {
   isLoading = false;
 
-  constructor(private authService: AuthService, private router: Router, private loadingCtrl: LoadingController) {
-  }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private loadingCtrl: LoadingController
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onLogin() {
-    this.loadingCtrl.create({
-      id: 'loading',
-      message: 'Logging in...',
-      keyboardClose: true,
-    }).then(loadingEl => {
-      loadingEl.present();
-      setTimeout(() => {
-        loadingEl.dismiss();
-        this.isLoading = false;
-        this.router.navigateByUrl('/places/tabs/discover');
-      }, 2000);
-    })
+    this.loadingCtrl
+      .create({
+        id: 'loading',
+        message: 'Logging in...',
+        keyboardClose: true,
+      })
+      .then((loadingEl) => {
+        loadingEl.present();
+        setTimeout(() => {
+          loadingEl.dismiss();
+          this.isLoading = false;
+          this.router.navigateByUrl('/places/tabs/discover');
+        }, 2000);
+      });
     this.isLoading = true;
     this.authService.login();
   }

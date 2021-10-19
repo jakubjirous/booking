@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalController, NavController } from '@ionic/angular';
+import {
+  ActionSheetController,
+  ModalController,
+  NavController,
+} from '@ionic/angular';
 import { CreateBookingComponent } from '../../../../components/create-booking/create-booking.component';
-import { PlacesService } from '../../../../services/places/places.service';
 import { Place } from '../../../../models/place.model';
+import { PlacesService } from '../../../../services/places/places.service';
 
 @Component({
   selector: 'app-place-detail',
@@ -17,7 +21,8 @@ export class PlaceDetailPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private navCtrl: NavController,
     private placesService: PlacesService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private actionSheetCtrl: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -38,6 +43,38 @@ export class PlaceDetailPage implements OnInit {
 
     // you need previous page in stack
     // this.navCtrl.pop();
+
+    // new action sheet
+    this.actionSheetCtrl
+      .create({
+        header: 'Choose an Action',
+        buttons: [
+          {
+            text: 'Select Date',
+            handler: () => {
+              this.openBookingModal('select');
+            },
+          },
+          {
+            text: 'Random Date',
+            handler: () => {
+              this.openBookingModal('random');
+            },
+          },
+          {
+            text: 'Cancel',
+            role: 'cancel',
+          },
+        ],
+      })
+      .then((actionSheetEl) => {
+        actionSheetEl.present();
+      });
+  }
+
+  openBookingModal(mode: 'select' | 'random') {
+    // TODO: pass mode as modal props (Jakub Jirous 2021-10-19 14:03:33)
+    console.log(mode);
 
     // open modal here
     this.modalCtrl
