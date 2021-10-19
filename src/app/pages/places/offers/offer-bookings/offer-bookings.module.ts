@@ -13,8 +13,8 @@ import { OfferBookingsPage } from './offer-bookings.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    OfferBookingsPageRoutingModule
+    OfferBookingsPageRoutingModule,
   ],
-  declarations: [OfferBookingsPage]
+  declarations: [OfferBookingsPage],
 })
 export class OfferBookingsPageModule {}

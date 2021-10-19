@@ -19,21 +19,25 @@ export enum Paths {
 const routes: Routes = [
   {
     path: '',
-    // redirectTo: Paths.AUTH,
-    redirectTo: Paths.PLACES,
+    redirectTo: 'places',
     pathMatch: 'full',
   },
   {
-    path: Paths.AUTH,
-    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthPageModule)
+    path: 'auth',
+    loadChildren: () =>
+      import('./pages/auth/auth.module').then((m) => m.AuthPageModule),
   },
   {
-    path: Paths.PLACES,
-    loadChildren: () => import('./pages/places/places.module').then( m => m.PlacesPageModule)
+    path: 'places',
+    loadChildren: () =>
+      import('./pages/places/places.module').then((m) => m.PlacesPageModule),
   },
   {
-    path: Paths.BOOKINGS,
-    loadChildren: () => import('./pages/bookings/bookings.module').then( m => m.BookingsPageModule)
+    path: 'bookings',
+    loadChildren: () =>
+      import('./pages/bookings/bookings.module').then(
+        (m) => m.BookingsPageModule
+      ),
   },
 ];
 
@@ -43,5 +47,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

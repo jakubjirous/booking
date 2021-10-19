@@ -13,8 +13,8 @@ import { PlaceDetailPage } from './place-detail.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    PlaceDetailPageRoutingModule
+    PlaceDetailPageRoutingModule,
   ],
-  declarations: [PlaceDetailPage]
+  declarations: [PlaceDetailPage],
 })
 export class PlaceDetailPageModule {}
