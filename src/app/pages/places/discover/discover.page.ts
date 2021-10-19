@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { PlacesService } from '../../../services/places/places.service';
-import { Place } from '../place.model';
+import { Place } from '../../../models/place.model';
 
 @Component({
   selector: 'app-discover',
