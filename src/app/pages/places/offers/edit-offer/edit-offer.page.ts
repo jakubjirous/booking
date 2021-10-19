@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { NavController } from "@ionic/angular";
-import { PlacesService } from "../../../../services/places/places.service";
-import { Place } from "../../place.model";
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { PlacesService } from '../../../../services/places/places.service';
+import { Place } from '../../place.model';
 
 @Component({
   selector: 'app-edit-offer',
@@ -12,8 +12,11 @@ import { Place } from "../../place.model";
 export class EditOfferPage implements OnInit {
   place: Place;
 
-  constructor(private activatedRoute: ActivatedRoute, private navController: NavController, private placesService: PlacesService) {
-  }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private navController: NavController,
+    private placesService: PlacesService
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {

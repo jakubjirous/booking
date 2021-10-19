@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-menu side="start" menuId="m1">
+  <ion-menu side="start" menuId="menu1" contentId="content1">
     <ion-header>
       <ion-toolbar>
         <ion-title>
@@ -10,19 +10,19 @@
 
     <ion-content>
       <ion-list>
-        <ion-menu-toggle menu="m1">
+        <ion-menu-toggle menu="menu1">
           <ion-item lines="none" routerLink="/places/tabs/discover">
             <ion-icon name="business" slot="start"></ion-icon>
             <ion-label>Discover Places</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle menu="m1">
+        <ion-menu-toggle menu="menu1">
           <ion-item lines="none" routerLink="/bookings">
             <ion-icon name="checkbox-outline" slot="start"></ion-icon>
             <ion-label>Your Bookings</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle menu="m1">
+        <ion-menu-toggle menu="menu1">
           <ion-item lines="none" (click)="onLogout()" button>
             <ion-icon name="exit" slot="start"></ion-icon>
             <ion-label>Logout</ion-label>
@@ -31,5 +31,5 @@
       </ion-list>
     </ion-content>
   </ion-menu>
-  <ion-router-outlet name="main"></ion-router-outlet>
+  <ion-router-outlet id="content1"></ion-router-outlet>
 </ion-app>
