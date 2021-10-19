@@ -77,6 +77,11 @@ yarn run prettier:write
 - [Chrome Dev Tools](https://developers.google.com/web/tools/chrome-devtools/)
 - [Safari Web Inspector](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/Web_Inspector_Tutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40017576-CH1-SW1)
 - [Angular + Ionic Navigation Docs](https://ionicframework.com/docs/navigation/angular)
+- [Styling & Theming Basics Docs](https://ionicframework.com/docs/theming/basics)
+- [CSS Variables](https://ionicframework.com/docs/theming/css-variables)
+- [Color Generator](https://ionicframework.com/docs/theming/color-generator)
+- [Theming](https://ionicframework.com/docs/theming/advanced)
+- [More CSS Resources](https://academind.com/learn/css/)
 
 ## Android Config:
 
