@@ -17,5 +17,4 @@ import { PlaceDetailPage } from './place-detail.page';
   ],
   declarations: [PlaceDetailPage],
 })
-export class PlaceDetailPageModule {
-}
+export class PlaceDetailPageModule {}

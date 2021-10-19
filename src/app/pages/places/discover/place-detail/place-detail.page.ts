@@ -17,9 +17,8 @@ export class PlaceDetailPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private navCtrl: NavController,
     private placesService: PlacesService,
-    private modalCtrl: ModalController,
-  ) {
-  }
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
@@ -41,8 +40,24 @@ export class PlaceDetailPage implements OnInit {
     // this.navCtrl.pop();
 
     // open modal here
-    this.modalCtrl.create({ component: CreateBookingComponent }).then(modelEl => {
-      modelEl.present();
-    })
+    this.modalCtrl
+      .create({
+        id: 'create-booking-modal',
+        component: CreateBookingComponent,
+        componentProps: {
+          selectedPlace: this.place,
+        },
+      })
+      .then((modelEl) => {
+        modelEl.present();
+        // add listener to sent data as modal result
+        return modelEl.onDidDismiss();
+      })
+      .then((resultData) => {
+        console.log(resultData);
+        if (resultData?.role === 'confirm') {
+          console.log('BOOKED');
+        }
+      });
   }
 }
