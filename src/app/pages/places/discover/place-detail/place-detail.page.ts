@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
+import { CreateBookingComponent } from '../../../../components/create-booking/create-booking.component';
 import { PlacesService } from '../../../../services/places/places.service';
 import { Place } from '../../place.model';
 
@@ -14,14 +15,16 @@ export class PlaceDetailPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private navController: NavController,
-    private placesService: PlacesService
-  ) {}
+    private navCtrl: NavController,
+    private placesService: PlacesService,
+    private modalCtrl: ModalController,
+  ) {
+  }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap?.has('placeId')) {
-        this.navController.navigateBack('/places/tabs/discover ');
+        this.navCtrl.navigateBack('/places/tabs/discover ');
         return;
       }
 
@@ -32,9 +35,14 @@ export class PlaceDetailPage implements OnInit {
 
   onBookPlace() {
     // this.router.navigateByUrl('/places/tabs/discover');
-    this.navController.navigateBack('/places/tabs/discover');
+    // this.navCtrl.navigateBack('/places/tabs/discover');
 
     // you need previous page in stack
-    // this.navController.pop();
+    // this.navCtrl.pop();
+
+    // open modal here
+    this.modalCtrl.create({ component: CreateBookingComponent }).then(modelEl => {
+      modelEl.present();
+    })
   }
 }
