@@ -24,7 +24,7 @@ export class PlacesService {
     ),
     new Place(
       'p3',
-      'L\'Amour Toujours',
+      "L'Amour Toujours",
       'A romantic place in Paris!',
       'https://myldrwithafrenchman.files.wordpress.com/2017/01/eiffel_tower_in_paris__france_073036_.jpg?w=1118',
       167.87
