@@ -20,6 +20,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./offers/offers.module').then((m) => m.OffersPageModule),
       },
+      {
+        path: '',
+        redirectTo: '/places/tabs/discover',
+        pathMatch: 'full',
+      },
     ],
   },
   {
