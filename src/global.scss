@@ -29,3 +29,7 @@ ion-tab-button {
   --color: var(--ion-color-medium);
   --color-selected: var(--ion-color-secondary);
 }
+
+.ion-invalid.ion-touched ion-label {
+  --color: var(--ion-color-danger);
+}

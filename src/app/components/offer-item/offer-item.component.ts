@@ -9,7 +9,7 @@ import { Place } from '../../models/place.model';
 export class OfferItemComponent implements OnInit {
   @Input() offer: Place;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
 
