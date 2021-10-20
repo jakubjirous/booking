@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Auth</ion-title>
+    <ion-title>{{ isLoginMode ? 'Login' : 'Signup' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,7 +23,10 @@
                     #emailCtrl="ngModel"
                   ></ion-input>
                 </ion-item>
-                <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
+                <ion-item
+                  *ngIf="!emailCtrl.valid && emailCtrl.touched"
+                  lines="none"
+                >
                   <ion-label>
                     Should be a valid e-mail address.
                   </ion-label>
@@ -39,16 +42,31 @@
                     #passwordCtrl="ngModel"
                   ></ion-input>
                 </ion-item>
-                <ion-item *ngIf="!passwordCtrl.valid && passwordCtrl.touched" lines="none">
+                <ion-item
+                  *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
+                  lines="none"
+                >
                   <ion-label>
                     Should at least be 6 characters long.
                   </ion-label>
                 </ion-item>
                 <div class="ion-margin-top">
-                  <ion-button type="button" color="primary" fill="clear" expand="block" (click)="onLogin()">
-                    Switch to Login
+                  <ion-button
+                    type="button"
+                    color="primary"
+                    fill="clear"
+                    expand="block"
+                    (click)="onSwitchAuthMode()"
+                  >
+                    Switch to {{ isLoginMode ? 'Signup' : 'Login' }}
                   </ion-button>
-                  <ion-button type="submit" color="primary" expand="block" [disabled]="!form.valid" (click)="onLogin()">
+                  <ion-button
+                    type="submit"
+                    color="primary"
+                    expand="block"
+                    [disabled]="!form.valid"
+                    (click)="onLogin()"
+                  >
                     Login
                   </ion-button>
                 </div>

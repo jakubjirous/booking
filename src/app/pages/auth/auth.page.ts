@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class AuthPage implements OnInit {
   isLoading = false;
+  isLoginMode = true;
 
   constructor(
     private authService: AuthService,
@@ -43,7 +44,23 @@ export class AuthPage implements OnInit {
     this.authService.logout();
   }
 
+  onSwitchAuthMode() {
+    this.isLoginMode = !this.isLoginMode;
+  }
+
   onSubmit(form: NgForm) {
-    console.log(form);
+    if (!form.valid) {
+      return;
+    }
+
+    const email = form.value.email;
+    const password = form.value.password;
+    console.log(email, password);
+
+    if (this.isLoginMode) {
+      // Send to request to login servers
+    } else {
+      // Send to request to signup servers
+    }
   }
 }
