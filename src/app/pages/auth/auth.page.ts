@@ -13,15 +13,17 @@ export class AuthPage implements OnInit {
   isLoading = false;
   isLoginMode = true;
 
+  showPassword = false;
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  onLogin() {
+  onLogin(): void {
     this.loadingCtrl
       .create({
         id: 'loading',
@@ -40,15 +42,19 @@ export class AuthPage implements OnInit {
     this.authService.login();
   }
 
-  onLogout() {
+  onLogout(): void {
     this.authService.logout();
   }
 
-  onSwitchAuthMode() {
+  onSwitchAuthMode(): void {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  onSubmit(form: NgForm) {
+  onTogglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  onSubmit(form: NgForm): void {
     if (!form.valid) {
       return;
     }

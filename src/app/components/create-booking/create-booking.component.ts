@@ -12,13 +12,13 @@ export class CreateBookingComponent implements OnInit {
 
   constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  onCancel() {
+  onCancel(): void {
     this.modalCtrl.dismiss(null, 'cancel', 'create-booking-modal');
   }
 
-  onBookPlace() {
+  onBookPlace(): void {
     this.modalCtrl.dismiss(
       {
         message: 'This is a dummy message!',

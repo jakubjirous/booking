@@ -6,6 +6,9 @@
   justify-content: center;
   align-items: center;
 
-  @include sm {
+  &__show-password {
+    align-self: center;
+    --ripple-color: transparent;
+    --background-hover: var(--background);
   }
 }

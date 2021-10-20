@@ -34,13 +34,25 @@
                 <ion-item>
                   <ion-label position="floating">Password</ion-label>
                   <ion-input
-                    type="password"
+                    [type]="showPassword ? 'text' : 'password'"
                     name="password"
                     ngModel
                     required
                     minlength="6"
                     #passwordCtrl="ngModel"
                   ></ion-input>
+                  <ion-button
+                    (click)="onTogglePassword()"
+                    slot="end"
+                    fill="clear"
+                    class="auth__show-password"
+                    >
+                    <ion-icon
+                      [name]="showPassword ? 'eye-off' : 'eye'"
+                      slot="icon-only"
+                      color="primary"
+                    ></ion-icon>
+                  </ion-button>
                 </ion-item>
                 <ion-item
                   *ngIf="!passwordCtrl.valid && passwordCtrl.touched"

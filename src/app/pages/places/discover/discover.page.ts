@@ -18,16 +18,16 @@ export class DiscoverPage implements OnInit {
     private menuCtrl: MenuController
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadedPlaces = this.placesService.places;
     this.listedLoadedPlaces = this.loadedPlaces.slice(1);
   }
 
-  onOpenMenu() {
+  onOpenMenu(): void {
     this.menuCtrl.toggle('menu1');
   }
 
-  onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
+  onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>): void {
     console.log(event?.detail);
   }
 

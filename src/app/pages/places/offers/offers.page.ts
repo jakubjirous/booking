@@ -14,11 +14,11 @@ export class OffersPage implements OnInit {
 
   constructor(private placesService: PlacesService, private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadedPlaces = this.placesService.places;
   }
 
-  onEdit(offerId: string, slidingEl: IonItemSliding) {
+  onEdit(offerId: string, slidingEl: IonItemSliding): void {
     slidingEl.close();
     this.router.navigate(['/', 'places', 'tabs', 'offers', 'edit', offerId]);
   }

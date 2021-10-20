@@ -1,0 +1,14 @@
+.textarea__helper {
+  ion-col,
+  ion-item,
+  ion-label {
+    margin: 0;
+    padding: 0;
+  }
+
+  ion-item {
+    text-align: right;
+    padding-top: 0.25rem;
+    --min-height: 1rem;
+  }
+}

@@ -25,7 +25,7 @@ export class PlaceDetailPage implements OnInit {
     private actionSheetCtrl: ActionSheetController
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap?.has('placeId')) {
         this.navCtrl.navigateBack('/places/tabs/discover ');
@@ -37,7 +37,7 @@ export class PlaceDetailPage implements OnInit {
     });
   }
 
-  onBookPlace() {
+  onBookPlace(): void {
     // this.router.navigateByUrl('/places/tabs/discover');
     // this.navCtrl.navigateBack('/places/tabs/discover');
 
@@ -72,7 +72,7 @@ export class PlaceDetailPage implements OnInit {
       });
   }
 
-  openBookingModal(mode: 'select' | 'random') {
+  openBookingModal(mode: 'select' | 'random'): void {
     // TODO: pass mode as modal props (Jakub Jirous 2021-10-19 14:03:33)
     console.log(mode);
 

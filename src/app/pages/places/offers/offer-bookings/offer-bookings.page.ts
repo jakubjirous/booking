@@ -18,7 +18,7 @@ export class OfferBookingsPage implements OnInit {
     private placesService: PlacesService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap?.has('placeId')) {
         this.navController.navigateBack('/places/tabs/offers ');

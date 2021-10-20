@@ -33,9 +33,20 @@
           <ion-item>
             <ion-label position="floating">Short Description</ion-label>
             <ion-textarea
-              rows="3"
+              rows="4"
+              maxlength="180"
               formControlName="description"
+              #textarea
             ></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="textarea__helper">
+        <ion-col size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3">
+          <ion-item lines="none">
+            <ion-label>
+              {{ textarea.value.length }} / 180
+            </ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
