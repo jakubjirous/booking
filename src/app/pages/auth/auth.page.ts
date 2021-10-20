@@ -55,6 +55,7 @@ export class AuthPage implements OnInit {
 
     const email = form.value.email;
     const password = form.value.password;
+    // TODO: login service will be added later (Jakub Jirous 2021-10-20 13:08:36)
     console.log(email, password);
 
     if (this.isLoginMode) {
