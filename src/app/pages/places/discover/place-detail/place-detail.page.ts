@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   ActionSheetController,
+  AlertController,
   LoadingController,
   ModalController,
   NavController,
@@ -24,6 +25,7 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
   place: Place;
   placeId: string;
   isBookable = false;
+  isLoading: boolean = false;
   private placeSubs: Subscription;
 
   constructor(
@@ -35,7 +37,9 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
     private actionSheetCtrl: ActionSheetController,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertCtrl: AlertController,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -44,14 +48,36 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
         this.navCtrl.navigateBack('/places/tabs/discover ');
         return;
       }
-
+      this.isLoading = true;
       this.placeId = paramMap?.get('placeId');
-      this.placeSubs = this.placesService
-        .getPlace(this.placeId)
-        .subscribe((place) => {
+      this.placeSubs = this.placesService.getPlace(this.placeId).subscribe(
+        (place) => {
+          this.isLoading = false;
           this.place = place;
           this.isBookable = place?.userId !== this.authService.userId;
-        });
+        },
+        (error) => {
+          console.log(error);
+
+          this.alertCtrl
+            .create({
+              header: 'An error occurred!',
+              message:
+                'Could not load the place detail, please try again later.',
+              buttons: [
+                {
+                  text: 'Okay',
+                  handler: () => {
+                    this.router.navigateByUrl('/places/tabs/discover');
+                  },
+                },
+              ],
+            })
+            .then((alertEl) => {
+              alertEl.present();
+            });
+        }
+      );
     });
   }
 

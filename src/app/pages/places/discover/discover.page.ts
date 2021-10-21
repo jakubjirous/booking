@@ -16,6 +16,7 @@ export class DiscoverPage implements OnInit, OnDestroy {
   listedLoadedPlaces: Place[];
   relevantPlaces: Place[];
   isLoading: boolean;
+  isAllPlaces: boolean = true;
   private loadedPlacesSubs: Subscription;
 
   constructor(
@@ -45,9 +46,11 @@ export class DiscoverPage implements OnInit, OnDestroy {
 
   onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>): void {
     if (event?.detail?.value === 'all') {
+      this.isAllPlaces = true;
       this.relevantPlaces = this.loadedPlaces;
       this.listedLoadedPlaces = this.relevantPlaces.slice(1);
     } else {
+      this.isAllPlaces = false;
       this.relevantPlaces = this.loadedPlaces.filter(
         (place) => place?.userId !== this.authService.userId
       );

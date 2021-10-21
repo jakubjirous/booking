@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { IFetchedPlace, Place } from '../../models/place.model';
@@ -71,6 +71,10 @@ export class PlacesService {
       )
       .pipe(
         map((response) => {
+          if (!response) {
+            throw throwError(response);
+          }
+
           return new Place(
             placeId,
             response?.title,
@@ -92,6 +96,10 @@ export class PlacesService {
       )
       .pipe(
         map((response) => {
+          if (!response) {
+            throw throwError(response);
+          }
+
           const places: Place[] = [];
           for (const [placeId, place] of Object.entries(response)) {
             if (response.hasOwnProperty(placeId)) {
@@ -110,6 +118,7 @@ export class PlacesService {
             }
           }
           return places;
+          // return [];
         }),
         tap((places) => {
           this._places.next(places);
@@ -144,6 +153,10 @@ export class PlacesService {
       })
       .pipe(
         switchMap((response) => {
+          if (!response) {
+            throw throwError(response);
+          }
+
           generatedId = response?.name;
           return this.places;
         }),
