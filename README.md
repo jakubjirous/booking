@@ -82,6 +82,7 @@ yarn run prettier:write
 - [Color Generator](https://ionicframework.com/docs/theming/color-generator)
 - [Theming](https://ionicframework.com/docs/theming/advanced)
 - [More CSS Resources](https://academind.com/learn/css/)
+- [Official Angular Forms Docs](https://angular.io/guide/forms-overview)
 
 ## Android Config:
 
