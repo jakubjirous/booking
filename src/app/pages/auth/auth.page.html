@@ -5,88 +5,86 @@
 </ion-header>
 
 <ion-content>
-  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-    <div class="auth">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" size-md="8" size-lg="6" offset-md="2" offset-lg="3">
-            <ion-card>
-              <ion-card-content>
-                <ion-item>
-                  <ion-label position="floating">E-mail</ion-label>
-                  <ion-input
-                    type="email"
-                    name="email"
-                    ngModel
-                    required
-                    email
-                    #emailCtrl="ngModel"
-                  ></ion-input>
-                </ion-item>
-                <ion-item
-                  *ngIf="!emailCtrl.valid && emailCtrl.touched"
-                  lines="none"
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="auth">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="8" size-lg="6" offset-md="2" offset-lg="3">
+          <ion-card>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="floating">E-mail</ion-label>
+                <ion-input
+                  type="email"
+                  name="email"
+                  ngModel
+                  required
+                  email
+                  #emailCtrl="ngModel"
+                ></ion-input>
+              </ion-item>
+              <ion-item
+                *ngIf="!emailCtrl.valid && emailCtrl.touched"
+                lines="none"
+              >
+                <ion-label>
+                  Should be a valid e-mail address.
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input
+                  [type]="showPassword ? 'text' : 'password'"
+                  name="password"
+                  ngModel
+                  required
+                  minlength="6"
+                  #passwordCtrl="ngModel"
+                ></ion-input>
+                <ion-button
+                  (click)="onTogglePassword()"
+                  slot="end"
+                  fill="clear"
+                  class="auth__show-password"
                 >
-                  <ion-label>
-                    Should be a valid e-mail address.
-                  </ion-label>
-                </ion-item>
-                <ion-item>
-                  <ion-label position="floating">Password</ion-label>
-                  <ion-input
-                    [type]="showPassword ? 'text' : 'password'"
-                    name="password"
-                    ngModel
-                    required
-                    minlength="6"
-                    #passwordCtrl="ngModel"
-                  ></ion-input>
-                  <ion-button
-                    (click)="onTogglePassword()"
-                    slot="end"
-                    fill="clear"
-                    class="auth__show-password"
-                    >
-                    <ion-icon
-                      [name]="showPassword ? 'eye-off' : 'eye'"
-                      slot="icon-only"
-                      color="primary"
-                    ></ion-icon>
-                  </ion-button>
-                </ion-item>
-                <ion-item
-                  *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
-                  lines="none"
+                  <ion-icon
+                    [name]="showPassword ? 'eye-off' : 'eye'"
+                    slot="icon-only"
+                    color="primary"
+                  ></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item
+                *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
+                lines="none"
+              >
+                <ion-label>
+                  Should at least be 6 characters long.
+                </ion-label>
+              </ion-item>
+              <div class="ion-margin-top">
+                <ion-button
+                  type="button"
+                  color="primary"
+                  fill="clear"
+                  expand="block"
+                  (click)="onSwitchAuthMode()"
                 >
-                  <ion-label>
-                    Should at least be 6 characters long.
-                  </ion-label>
-                </ion-item>
-                <div class="ion-margin-top">
-                  <ion-button
-                    type="button"
-                    color="primary"
-                    fill="clear"
-                    expand="block"
-                    (click)="onSwitchAuthMode()"
-                  >
-                    Switch to {{ isLoginMode ? 'Signup' : 'Login' }}
-                  </ion-button>
-                  <ion-button
-                    type="submit"
-                    color="primary"
-                    expand="block"
-                    [disabled]="!form.valid"
-                    (click)="onLogin()"
-                  >
-                    Login
-                  </ion-button>
-                </div>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
+                  Switch to {{ isLoginMode ? 'Signup' : 'Login' }}
+                </ion-button>
+                <ion-button
+                  type="submit"
+                  color="primary"
+                  expand="block"
+                  [disabled]="!form.valid"
+                  (click)="onLogin()"
+                >
+                  Login
+                </ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>

@@ -11,26 +11,35 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment value="all" (ionChange)="onFilterUpdate($event)">
-    <ion-segment-button value="all">All Places</ion-segment-button>
-    <ion-segment-button value="bookable">Bookable Places</ion-segment-button>
-  </ion-segment>
-  <ion-grid>
+  <div class="segment-wrapper">
+    <ion-segment value="all" (ionChange)="onFilterUpdate($event)">
+      <ion-segment-button value="all">All Places</ion-segment-button>
+      <ion-segment-button value="bookable">Bookable Places</ion-segment-button>
+    </ion-segment>
+  </div>
+  <ion-grid *ngIf="!relevantPlaces || relevantPlaces?.length <= 0">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3" class="ion-text-center ion-padding ion-margin-vertical">
+        <ion-text>There are no bookable places right now, <br>please come back later!</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="relevantPlaces?.length > 0">
     <ion-row>
       <ion-col size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3" class="ion-text-center">
         <ion-card>
           <ion-card-header>
             <ion-card-title>
-              {{ loadedPlaces?.[0]?.title  }}
+              {{ relevantPlaces?.[0]?.title  }}
             </ion-card-title>
             <ion-card-subtitle>
-              {{ loadedPlaces?.[0]?.price | currency }} / Night
+              {{ relevantPlaces?.[0]?.price | currency }} / Night
             </ion-card-subtitle>
-            <ion-img [src]="loadedPlaces?.[0]?.imageUrl" class="ion-margin-top"></ion-img>
+            <ion-img [src]="relevantPlaces?.[0]?.imageUrl" class="ion-margin-top"></ion-img>
           </ion-card-header>
           <ion-card-content>
             <p>
-              {{ loadedPlaces?.[0]?.description  }}
+              {{ relevantPlaces?.[0]?.description  }}
             </p>
           </ion-card-content>
           <div class="ion-text-center">
@@ -43,7 +52,7 @@
                 'places',
                 'tabs',
                 'discover',
-                loadedPlaces?.[0]?.id
+                relevantPlaces?.[0]?.id
               ]"
             >
               More

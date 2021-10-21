@@ -19,7 +19,7 @@ export class PlacesService {
       149.99,
       new Date('2019-01-01'),
       new Date('2019-12-31'),
-      'u1'
+      'james'
     ),
     new Place(
       'p2',
@@ -29,7 +29,7 @@ export class PlacesService {
       256.44,
       new Date('2019-01-01'),
       new Date('2019-12-31'),
-      'u2'
+      'james'
     ),
     new Place(
       'p3',
@@ -39,7 +39,7 @@ export class PlacesService {
       167.87,
       new Date('2019-01-01'),
       new Date('2019-12-31'),
-      'u3'
+      'james'
     ),
     new Place(
       'p4',
