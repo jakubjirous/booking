@@ -1,14 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   ActionSheetController,
+  LoadingController,
   ModalController,
   NavController,
+  ToastController,
 } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { CreateBookingComponent } from '../../../../components/create-booking/create-booking.component';
 import { BookingMode } from '../../../../models/booking.model';
 import { Place } from '../../../../models/place.model';
+import { BookingsService } from '../../../../services/bookings/bookings.service';
 import { PlacesService } from '../../../../services/places/places.service';
 
 @Component({
@@ -24,8 +27,11 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private navCtrl: NavController,
     private placesService: PlacesService,
+    private bookingService: BookingsService,
     private modalCtrl: ModalController,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController
   ) {}
 
   ngOnInit(): void {
@@ -95,10 +101,38 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
         return modelEl.onDidDismiss();
       })
       .then((resultData) => {
-        console.log(resultData);
-
         if (resultData?.role === 'confirm') {
-          console.log('BOOKED');
+          this.loadingCtrl
+            .create({
+              message: 'Booking place...',
+            })
+            .then((loadingEl) => {
+              loadingEl.present();
+              const bookingData = resultData?.data?.bookingData;
+              this.bookingService
+                .addBooking(
+                  this.place?.id,
+                  this.place?.title,
+                  this.place?.imageUrl,
+                  bookingData?.firstName,
+                  bookingData?.lastName,
+                  bookingData?.guestNumber,
+                  bookingData?.dateFrom,
+                  bookingData?.dateTo
+                )
+                .subscribe(() => {
+                  loadingEl.dismiss();
+                  this.toastCtrl
+                    .create({
+                      message: 'Your booking was created.',
+                      color: 'success',
+                      duration: 3000,
+                    })
+                    .then((toastEl) => {
+                      toastEl.present();
+                    });
+                });
+            });
         }
       });
   }
