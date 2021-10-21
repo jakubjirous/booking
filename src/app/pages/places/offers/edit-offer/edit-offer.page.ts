@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
-import { PlacesService } from '../../../../services/places/places.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingController, NavController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { Place } from '../../../../models/place.model';
+import { PlacesService } from '../../../../services/places/places.service';
 
 @Component({
   selector: 'app-edit-offer',
   templateUrl: './edit-offer.page.html',
   styleUrls: ['./edit-offer.page.scss'],
 })
-export class EditOfferPage implements OnInit {
+export class EditOfferPage implements OnInit, OnDestroy {
   place: Place;
   form: FormGroup;
+  private placeSubs: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private navController: NavController,
-    private placesService: PlacesService
+    private placesService: PlacesService,
+    private loadingCtrl: LoadingController,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -28,9 +32,12 @@ export class EditOfferPage implements OnInit {
       }
 
       const placeId = paramMap?.get('placeId');
-      this.place = this.placesService.getPlace(placeId);
-
-      this.formFactory();
+      this.placeSubs = this.placesService
+        .getPlace(placeId)
+        .subscribe((place) => {
+          this.place = place;
+          this.formFactory();
+        });
     });
   }
 
@@ -39,8 +46,31 @@ export class EditOfferPage implements OnInit {
       return;
     }
 
-    console.log('onEditOffer');
-    console.log(this.form);
+    this.loadingCtrl
+      .create({
+        message: 'Updating place...',
+      })
+      .then((loadingEl) => {
+        loadingEl.present();
+
+        this.placesService
+          .updatePlace(
+            this.place.id,
+            this.form.value.title,
+            this.form.value.description
+          )
+          .subscribe(() => {
+            this.loadingCtrl.dismiss();
+            this.form.reset();
+            this.router.navigateByUrl('/places/tabs/offers');
+          });
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.placeSubs) {
+      this.placeSubs.unsubscribe();
+    }
   }
 
   private formFactory(): void {

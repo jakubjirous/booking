@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { SegmentChangeEventDetail } from '@ionic/core';
+import { Subscription } from 'rxjs';
 import { Place } from '../../../models/place.model';
 import { PlacesService } from '../../../services/places/places.service';
 
@@ -9,8 +10,9 @@ import { PlacesService } from '../../../services/places/places.service';
   templateUrl: './discover.page.html',
   styleUrls: ['./discover.page.scss'],
 })
-export class DiscoverPage implements OnInit {
+export class DiscoverPage implements OnInit, OnDestroy {
   loadedPlaces: Place[];
+  private loadedPlacesSubs: Subscription;
   listedLoadedPlaces: Place[];
 
   constructor(
@@ -19,8 +21,10 @@ export class DiscoverPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadedPlaces = this.placesService.places;
-    this.listedLoadedPlaces = this.loadedPlaces.slice(1);
+    this.loadedPlacesSubs = this.placesService.places.subscribe((places) => {
+      this.loadedPlaces = places;
+      this.listedLoadedPlaces = this.loadedPlaces.slice(1);
+    });
   }
 
   onOpenMenu(): void {
@@ -31,7 +35,9 @@ export class DiscoverPage implements OnInit {
     console.log(event?.detail);
   }
 
-  // ionViewWillEnter() {
-  //   this.loadedPlaces = this.placesService.places;
-  // }
+  ngOnDestroy(): void {
+    if (this.loadedPlacesSubs) {
+      this.loadedPlacesSubs.unsubscribe();
+    }
+  }
 }
