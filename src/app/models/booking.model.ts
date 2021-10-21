@@ -17,3 +17,15 @@ export enum BookingMode {
   RANDOM = 'random',
   SELECT = 'select',
 }
+
+export interface IFetchedBooking {
+  placeId: string;
+  placeTitle: string;
+  placeImage: string;
+  firstName: string;
+  lastName: string;
+  guestNumber: string;
+  bookedFrom: string;
+  bookedTo: string;
+  userId: string;
+}

@@ -1,0 +1,32 @@
+.booking {
+  font-size: 14px;
+  h5 {
+    font-size: 1rem;
+  }
+
+  ion-avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  &__guests {
+    ion-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  &__dates {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 0.5rem;
+
+    ion-icon {
+      margin-right: 0.5rem;
+    }
+
+    span {
+      margin: 0 0.5rem;
+    }
+  }
+}

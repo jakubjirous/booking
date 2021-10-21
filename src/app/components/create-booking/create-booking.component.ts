@@ -48,8 +48,8 @@ export class CreateBookingComponent implements OnInit {
   }
 
   datesValid(): boolean {
-    const startDate = new Date(this.form.value['dateFrom']);
-    const endDate = new Date(this.form.value['dateTo']);
+    const startDate = new Date(this.form?.value['dateFrom']);
+    const endDate = new Date(this.form?.value['dateTo']);
     return endDate > startDate;
   }
 
@@ -61,11 +61,11 @@ export class CreateBookingComponent implements OnInit {
     this.modalCtrl.dismiss(
       {
         bookingData: {
-          firstName: this.form.value['firstName'],
-          lastName: this.form.value['lastName'],
-          guestNumber: this.form.value['guestNumber'],
-          startDate: new Date(this.form.value['dateFrom']),
-          endDate: new Date(this.form.value['dateTo']),
+          firstName: this.form?.value['firstName'],
+          lastName: this.form?.value['lastName'],
+          guestNumber: this.form?.value['guestNumber'],
+          startDate: new Date(this.form?.value['dateFrom']),
+          endDate: new Date(this.form?.value['dateTo']),
         },
       },
       'confirm',

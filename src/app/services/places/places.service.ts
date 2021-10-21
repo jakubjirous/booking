@@ -89,7 +89,7 @@ export class PlacesService {
       );
   }
 
-  fetchPlaces(): Observable<any> {
+  fetchPlaces(): Observable<Place[]> {
     return this.httpClient
       .get<{ [key: string]: IFetchedPlace }>(
         `${environment.apiUrl}/offered-places.json`

@@ -9,23 +9,45 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row *ngIf="!loadedBookings && loadedBookings?.length <= 0">
+    <ion-row>
       <ion-col
+        *ngIf="isLoading"
         size="12" size-md="8" offset-md="2" size-lg="6" offset-lg="3"
-        class="ion-text-center ion-padding ion-margin-vertical">
+        class="ion-text-center ion-padding ion-margin-vertical"
+      >
+        <ion-spinner color="primary"></ion-spinner>
+      </ion-col>
+      <ion-col
+        *ngIf="!isLoading && (!loadedBookings || loadedBookings?.length <= 0)"
+        size="12" size-md="8" offset-md="2" size-lg="6" offset-lg="3"
+        class="ion-text-center ion-padding ion-margin-vertical"
+      >
         <ion-text>
           No Bookings found!
         </ion-text>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="loadedBookings && loadedBookings?.length > 0">
+    <ion-row *ngIf="!isLoading && loadedBookings && loadedBookings?.length > 0">
       <ion-col size="12" size-md="8" offset-md="2" size-lg="6" offset-lg="3">
         <ion-list>
           <ion-item-sliding *ngFor="let booking of loadedBookings" #slidingBooking>
-            <ion-item>
+            <ion-item class="booking">
+              <ion-avatar slot="start">
+                <ion-img [src]="booking?.placeImage"></ion-img>
+              </ion-avatar>
               <ion-label>
                 <h5>{{ booking?.placeTitle }}</h5>
-                <p>Guests: {{ booking?.guestNumber }}</p>
+                <div class="booking__guests">
+                  <ion-icon name="people" color="primary"></ion-icon>
+                  Guests: {{ booking?.guestNumber }}
+                </div>
+                <div class="booking__dates">
+                  <ion-icon name="calendar-outline" color="primary"></ion-icon>
+                  <ion-text color="secondary">{{ booking?.bookedFrom | date }}</ion-text>
+                  <span>to</span>
+                  <ion-icon name="calendar" color="primary"></ion-icon>
+                  <ion-text color="secondary">{{ booking?.bookedTo | date }}</ion-text>
+                </div>
               </ion-label>
             </ion-item>
             <ion-item-options side="end">
