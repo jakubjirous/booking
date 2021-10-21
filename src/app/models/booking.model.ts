@@ -7,3 +7,8 @@ export class Booking {
     public guestNumber: number
   ) {}
 }
+
+export enum BookingMode {
+  RANDOM = 'random',
+  SELECT = 'select',
+}

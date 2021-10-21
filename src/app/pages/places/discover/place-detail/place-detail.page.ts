@@ -6,6 +6,7 @@ import {
   NavController,
 } from '@ionic/angular';
 import { CreateBookingComponent } from '../../../../components/create-booking/create-booking.component';
+import { BookingMode } from '../../../../models/booking.model';
 import { Place } from '../../../../models/place.model';
 import { PlacesService } from '../../../../services/places/places.service';
 
@@ -52,13 +53,13 @@ export class PlaceDetailPage implements OnInit {
           {
             text: 'Select Date',
             handler: () => {
-              this.openBookingModal('select');
+              this.openBookingModal(BookingMode.SELECT);
             },
           },
           {
             text: 'Random Date',
             handler: () => {
-              this.openBookingModal('random');
+              this.openBookingModal(BookingMode.RANDOM);
             },
           },
           {
@@ -72,17 +73,14 @@ export class PlaceDetailPage implements OnInit {
       });
   }
 
-  openBookingModal(mode: 'select' | 'random'): void {
-    // TODO: pass mode as modal props (Jakub Jirous 2021-10-19 14:03:33)
-    console.log(mode);
-
-    // open modal here
+  openBookingModal(mode: BookingMode): void {
     this.modalCtrl
       .create({
         id: 'create-booking-modal',
         component: CreateBookingComponent,
         componentProps: {
           selectedPlace: this.place,
+          selectedMode: mode,
         },
       })
       .then((modelEl) => {
@@ -92,6 +90,7 @@ export class PlaceDetailPage implements OnInit {
       })
       .then((resultData) => {
         console.log(resultData);
+
         if (resultData?.role === 'confirm') {
           console.log('BOOKED');
         }
