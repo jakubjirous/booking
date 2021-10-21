@@ -25,6 +25,10 @@
         <ion-text>
           No Bookings found!
         </ion-text>
+        <ng-lottie
+          [options]="options"
+          (animationCreated)="animationCreated($event)">
+        </ng-lottie>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="!isLoading && loadedBookings && loadedBookings?.length > 0">

@@ -5763,6 +5763,11 @@ loglevel@^1.6.8:
   resolved "https://registry.npmjs.org/loglevel/-/loglevel-1.7.1.tgz"
   integrity sha512-Hesni4s5UkWkwCGJMQGAh71PaLUmKFM60dHvq0zi/vDhhrzuk+4GgNbTXJ12YYQJn6ZKBDNIjYcuQGKudvqrIw==
 
+lottie-web@^5.7.14:
+  version "5.7.14"
+  resolved "https://registry.yarnpkg.com/lottie-web/-/lottie-web-5.7.14.tgz#cdabd256181c3ea64cf0c174a61dfa137228981f"
+  integrity sha512-J+QEPse7Rws0XvTqRJNtcE8cszb5FWYFHubEK6bgDJtw64/AQJ40aazbWXsWGBM4sm/PgLBLgmmhDU4QpLiieg==
+
 lru-cache@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npmjs.org/lru-cache/-/lru-cache-6.0.0.tgz"
@@ -6170,6 +6175,13 @@ neo-async@^2.6.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+ngx-lottie@^7.0.4:
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/ngx-lottie/-/ngx-lottie-7.0.4.tgz#b18256c2fa46d9a810dfbe1b8f78e186c56d440a"
+  integrity sha512-73y+fTCrUmXf+45TJx3+DChaedk5RFkQfDALZs5l1HVMaWcTzrTph7DLSRNAw1aMqHGL0u39HLMso1i2ZxF8GQ==
+  dependencies:
+    tslib "^2.2.0"
 
 nice-try@^1.0.4:
   version "1.0.5"

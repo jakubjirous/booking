@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IonItemSliding, LoadingController } from '@ionic/angular';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
 import { Booking } from '../../models/booking.model';
 import { BookingsService } from '../../services/bookings/bookings.service';
@@ -13,6 +15,10 @@ export class BookingsPage implements OnInit, OnDestroy {
   loadedBookings: Booking[];
   isLoading: boolean = false;
   private loadedBookingsSubs: Subscription;
+
+  options: AnimationOptions = {
+    path: '/assets/lotties/empty.json',
+  };
 
   constructor(
     private bookingsService: BookingsService,
@@ -32,6 +38,10 @@ export class BookingsPage implements OnInit, OnDestroy {
     this.bookingsService.fetchBookings().subscribe(() => {
       this.isLoading = false;
     });
+  }
+
+  animationCreated(animationItem: AnimationItem): void {
+    console.log(animationItem);
   }
 
   onCancelBooking(bookingId: string, slidingEl: IonItemSliding): void {
