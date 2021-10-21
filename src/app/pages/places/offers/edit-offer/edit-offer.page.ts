@@ -13,7 +13,9 @@ import { PlacesService } from '../../../../services/places/places.service';
 })
 export class EditOfferPage implements OnInit, OnDestroy {
   place: Place;
+  placeId: string;
   form: FormGroup;
+  isLoading: boolean = false;
   private placeSubs: Subscription;
 
   constructor(
@@ -27,22 +29,23 @@ export class EditOfferPage implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap?.has('placeId')) {
-        this.navController.navigateBack('/places/tabs/offers ');
+        this.navController.navigateBack('/places/tabs/offers');
         return;
       }
-
-      const placeId = paramMap?.get('placeId');
+      this.isLoading = true;
+      this.placeId = paramMap?.get('placeId');
       this.placeSubs = this.placesService
-        .getPlace(placeId)
+        .getPlace(this.placeId)
         .subscribe((place) => {
           this.place = place;
           this.formFactory();
+          this.isLoading = false;
         });
     });
   }
 
   onUpdateOffer(): void {
-    if (!this.form.valid) {
+    if (!this.form?.valid) {
       return;
     }
 

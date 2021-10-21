@@ -22,6 +22,7 @@ import { PlacesService } from '../../../../services/places/places.service';
 })
 export class PlaceDetailPage implements OnInit, OnDestroy {
   place: Place;
+  placeId: string;
   isBookable = false;
   private placeSubs: Subscription;
 
@@ -44,9 +45,9 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
         return;
       }
 
-      const placeId = paramMap?.get('placeId');
+      this.placeId = paramMap?.get('placeId');
       this.placeSubs = this.placesService
-        .getPlace(placeId)
+        .getPlace(this.placeId)
         .subscribe((place) => {
           this.place = place;
           this.isBookable = place?.userId !== this.authService.userId;

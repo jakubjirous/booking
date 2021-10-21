@@ -54,7 +54,7 @@ export class CreateBookingComponent implements OnInit {
   }
 
   onBookPlace(): void {
-    if (!this.form.valid || !this.datesValid()) {
+    if (!this.form?.valid || !this.datesValid()) {
       return;
     }
 

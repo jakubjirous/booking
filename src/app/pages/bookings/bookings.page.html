@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row *ngIf="!loadedBookings || loadedBookings?.length <= 0">
+    <ion-row *ngIf="!loadedBookings && loadedBookings?.length <= 0">
       <ion-col
         size="12" size-md="8" offset-md="2" size-lg="6" offset-lg="3"
         class="ion-text-center ion-padding ion-margin-vertical">

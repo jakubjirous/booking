@@ -10,3 +10,13 @@ export class Place {
     public userId: string
   ) {}
 }
+
+export interface IFetchedPlace {
+  title: string;
+  description: string;
+  imageUrl: string;
+  price: number;
+  availableFrom: string;
+  availableTo: string;
+  userId: string;
+}

@@ -17,7 +17,17 @@
       <ion-segment-button value="bookable">Bookable Places</ion-segment-button>
     </ion-segment>
   </div>
-  <ion-grid *ngIf="!relevantPlaces || relevantPlaces?.length <= 0">
+  <ion-grid *ngIf="isLoading">
+    <ion-row>
+      <ion-col
+        size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3"
+        class="ion-text-center"
+      >
+        <ion-spinner color="primary" class="ion-margin"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!isLoading && (!relevantPlaces || relevantPlaces?.length <= 0)">
     <ion-row>
       <ion-col
         size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3"
@@ -27,7 +37,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="relevantPlaces?.length > 0">
+  <ion-grid *ngIf="!isLoading && relevantPlaces?.length > 0">
     <ion-row>
       <ion-col size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3" class="ion-text-center">
         <ion-card>
