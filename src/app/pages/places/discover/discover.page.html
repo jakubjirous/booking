@@ -19,7 +19,10 @@
   </div>
   <ion-grid *ngIf="!relevantPlaces || relevantPlaces?.length <= 0">
     <ion-row>
-      <ion-col size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3" class="ion-text-center ion-padding ion-margin-vertical">
+      <ion-col
+        size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3"
+        class="ion-text-center ion-padding ion-margin-vertical"
+      >
         <ion-text>There are no bookable places right now, <br>please come back later!</ion-text>
       </ion-col>
     </ion-row>
@@ -62,7 +65,11 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3" class="ion-text-center">
+      <ion-col
+        *ngIf="listedLoadedPlaces?.length > 0"
+        size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3"
+        class="ion-text-center"
+      >
         <ion-virtual-scroll
           [items]="listedLoadedPlaces"
           approxItemHeight="70px"

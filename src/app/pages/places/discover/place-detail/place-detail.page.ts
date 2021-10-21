@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   ActionSheetController,
   LoadingController,
@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { CreateBookingComponent } from '../../../../components/create-booking/create-booking.component';
 import { BookingMode } from '../../../../models/booking.model';
 import { Place } from '../../../../models/place.model';
+import { AuthService } from '../../../../services/auth/auth.service';
 import { BookingsService } from '../../../../services/bookings/bookings.service';
 import { PlacesService } from '../../../../services/places/places.service';
 
@@ -21,6 +22,7 @@ import { PlacesService } from '../../../../services/places/places.service';
 })
 export class PlaceDetailPage implements OnInit, OnDestroy {
   place: Place;
+  isBookable = false;
   private placeSubs: Subscription;
 
   constructor(
@@ -31,7 +33,8 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private actionSheetCtrl: ActionSheetController,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +49,7 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
         .getPlace(placeId)
         .subscribe((place) => {
           this.place = place;
+          this.isBookable = place?.userId !== this.authService.userId;
         });
     });
   }
