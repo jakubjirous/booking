@@ -83,6 +83,7 @@ yarn run prettier:write
 - [Theming](https://ionicframework.com/docs/theming/advanced)
 - [More CSS Resources](https://academind.com/learn/css/)
 - [Official Angular Forms Docs](https://angular.io/guide/forms-overview)
+- [How to pass data around in Angular](https://academind.com/learn/angular/angular-q-a/#how-can-you-pass-data-from-a-to-b-e-g-between-components)
 
 ## Android Config:
 
