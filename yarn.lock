@@ -1263,6 +1263,11 @@
   "resolved" "https://registry.npmjs.org/@capacitor/keyboard/-/keyboard-1.1.2.tgz"
   "version" "1.1.2"
 
+"@capacitor/splash-screen@^1.1.5":
+  "integrity" "sha512-8hllDeHZkefb3R7sIWR0oRDXG/8FCXaHlh2OndeKxubeiRQhhTZk88vFIfPMphylxOsrWS3ExTZbbl3x6HdqGQ=="
+  "resolved" "https://registry.npmjs.org/@capacitor/splash-screen/-/splash-screen-1.1.5.tgz"
+  "version" "1.1.5"
+
 "@capacitor/status-bar@1.0.5":
   "integrity" "sha512-SZuxjaN5Nr8FKUVlkVH3l0X2JWey0yVMfMhyE3RG7ryUSAesgs3bvkAEXSfjphsHOpt4A/rEeCJb2ZbeCBwroA=="
   "resolved" "https://registry.npmjs.org/@capacitor/status-bar/-/status-bar-1.0.5.tgz"

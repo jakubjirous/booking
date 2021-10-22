@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Booking</string>
+    <string name="title_activity_main">Booking</string>
+    <string name="package_name">cz.jirous.jakub.ionic.angular.booking</string>
+    <string name="custom_url_scheme">cz.jirous.jakub.ionic.angular.booking</string>
+</resources>

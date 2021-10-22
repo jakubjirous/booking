@@ -22,7 +22,7 @@ export class LocationPickerComponent implements OnInit {
     private httpClient: HttpClient
   ) {}
 
-  private static getMapImage(
+  private getMapImage(
     lat: number,
     lng: number,
     zoom: number,
@@ -56,11 +56,7 @@ export class LocationPickerComponent implements OnInit {
               switchMap((address) => {
                 pickedLocation.address = address;
                 return of(
-                  LocationPickerComponent.getMapImage(
-                    pickedLocation?.lat,
-                    pickedLocation?.lng,
-                    12
-                  )
+                  this.getMapImage(pickedLocation?.lat, pickedLocation?.lng, 12)
                 );
               })
             )

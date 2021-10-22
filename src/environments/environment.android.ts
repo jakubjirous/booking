@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   apiUrl: 'https://ionic-angular-booking-firebase-default-rtdb.firebaseio.com/',
-  googleMapsApiKey: 'AIzaSyCEKl4cyNXQ92xdZV5Jt3NbjkmlGhxzdhQ', // for web
+  googleMapsApiKey: 'AIzaSyBQvMsenGELfltnM45C-vBhnZ-2cbtjZbs', // for android
 };
 
 /*

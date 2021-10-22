@@ -6,31 +6,6 @@ import { environment } from '../../../environments/environment';
 import { Booking, IFetchedBooking } from '../../models/booking.model';
 import { AuthService } from '../auth/auth.service';
 
-// new Booking(
-//   'b1',
-//   'p1',
-//   'u1',
-//   'Manhattan Mansion',
-//   'https://cf.bstatic.com/xdata/images/hotel/max1280x900/256850958.jpg?k=be686463a73a7db2250f9bd8516156e5bf0faca52a0674d52674e761adf902ae&o=&hp=1',
-//   'James',
-//   'Jirous',
-//   2,
-//   new Date(),
-//   new Date()
-// ),
-//   new Booking(
-//     'b2',
-//     'p2',
-//     'u2',
-//     'Stanley Park',
-//     'https://myldrwithafrenchman.files.wordpress.com/2017/01/eiffel_tower_in_paris__france_073036_.jpg?w=1118',
-//     'James',
-//     'Jirous',
-//     30,
-//     new Date(),
-//     new Date()
-//   ),
-
 @Injectable({
   providedIn: 'root',
 })
