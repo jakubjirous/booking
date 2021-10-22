@@ -15,6 +15,7 @@ import { Place } from '../../../../models/place.model';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { BookingsService } from '../../../../services/bookings/bookings.service';
 import { PlacesService } from '../../../../services/places/places.service';
+import { MapModalComponent } from '../../../../shared/map-modal/map-modal.component';
 
 @Component({
   selector: 'app-place-detail',
@@ -165,6 +166,29 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
                 });
             });
         }
+      });
+  }
+
+  // show modal with full google map
+  onShowFullMap(): void {
+    this.modalCtrl
+      .create({
+        id: 'location-picker-modal',
+        component: MapModalComponent,
+        componentProps: {
+          mapCenter: {
+            lat: this.place?.location?.lat,
+            lng: this.place?.location?.lng,
+          },
+          mapZoom: 11,
+          mapMarkerTitle: 'Picked Location',
+          title: this.place?.location?.address,
+          closeButtonText: 'Close',
+          selectable: false,
+        },
+      })
+      .then((modalEl) => {
+        modalEl.present();
       });
   }
 

@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnDestroy,
   OnInit,
   Renderer2,
@@ -18,6 +19,17 @@ import { ICoordinates } from '../../models/location.models';
 })
 export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('map') mapElementRef: ElementRef;
+
+  @Input() mapCenter: ICoordinates = {
+    lat: 49.3126471303234,
+    lng: -123.14295703901571,
+  };
+  @Input() mapZoom: number = 11;
+  @Input() mapMarkerTitle: string = 'Picked Location';
+  @Input() title: string = 'Pick Location';
+  @Input() closeButtonText: string = 'Cancel';
+  @Input() selectable: boolean = true;
+
   clickListener: any;
   googleMaps: any;
 
@@ -41,29 +53,42 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
         const mapEl = this.mapElementRef.nativeElement;
         const map = new googleMaps.maps.Map(mapEl, {
           // vancouver
-          center: {
-            lat: 49.3126471303234,
-            lng: -123.14295703901571,
-          },
-          zoom: 11,
+          center: this.mapCenter,
+          zoom: this.mapZoom,
         });
         this.googleMaps.maps.event.addListenerOnce(map, 'idle', () => {
           this.renderer.addClass(mapEl, 'visible');
         });
 
-        // click on the map
-        this.clickListener = map.addListener('click', (event) => {
-          const selectedCoords: ICoordinates = {
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng(),
-          };
-          this.modalCtrl.dismiss(selectedCoords);
-        });
+        // pick a location after click on the map
+        if (this.selectable) {
+          this.clickListener = map.addListener('click', (event) => {
+            const selectedCoords: ICoordinates = {
+              lat: event.latLng.lat(),
+              lng: event.latLng.lng(),
+            };
+            this.modalCtrl.dismiss(selectedCoords);
+          });
+        } else {
+          // adding marker to the map on my center location
+          const marker = new googleMaps.maps.Marker({
+            position: this.mapCenter,
+            map: map,
+            title: this.mapMarkerTitle,
+          });
+          marker.setMap(map);
+        }
       })
       .catch((error) => {
         // TODO: error handling (Jakub Jirous 2021-10-21 15:26:59)
         console.log(error);
       });
+  }
+
+  ngOnDestroy(): void {
+    if (this.clickListener) {
+      this.googleMaps.maps.event.removeListener(this.clickListener);
+    }
   }
 
   private getGoogleMaps(): Promise<any> {
@@ -89,9 +114,5 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       };
     });
-  }
-
-  ngOnDestroy(): void {
-    this.googleMaps.maps.event.removeListener(this.clickListener);
   }
 }

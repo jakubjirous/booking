@@ -85,6 +85,8 @@ yarn run prettier:write
 - [Official Angular Forms Docs](https://angular.io/guide/forms-overview)
 - [How to pass data around in Angular](https://academind.com/learn/angular/angular-q-a/#how-can-you-pass-data-from-a-to-b-e-g-between-components)
 - [Official Angular HttpClient Docs](https://angular.io/guide/http)
+- [Official Google Maps JS SDK Docs](https://developers.google.com/maps/documentation/javascript/tutorial)
+- [Google Maps Pricing](https://cloud.google.com/maps-platform/pricing/)
 
 ## Android Config:
 
