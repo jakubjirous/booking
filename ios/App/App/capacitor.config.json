@@ -1,0 +1,6 @@
+{
+	"appId": "cz.jirous.jakub.ionic.angular.booking",
+	"appName": "Booking",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

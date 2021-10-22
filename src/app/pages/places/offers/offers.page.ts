@@ -27,6 +27,8 @@ export class OffersPage implements OnInit, OnDestroy {
     this.isLoading = true;
     this.placesService.fetchPlaces().subscribe(() => {
       this.isLoading = false;
+    }, () => {
+      this.isLoading = false;
     });
   }
 

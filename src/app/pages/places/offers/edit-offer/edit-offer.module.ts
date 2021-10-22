@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { SharedModule } from '../../../../shared/shared.module';
 
 import { EditOfferPageRoutingModule } from './edit-offer-routing.module';
 

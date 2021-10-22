@@ -23,7 +23,8 @@ export class DiscoverPage implements OnInit, OnDestroy {
     private placesService: PlacesService,
     private menuCtrl: MenuController,
     private authService: AuthService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadedPlacesSubs = this.placesService.places.subscribe((places) => {
@@ -36,6 +37,8 @@ export class DiscoverPage implements OnInit, OnDestroy {
   ionViewWillEnter() {
     this.isLoading = true;
     this.placesService.fetchPlaces().subscribe(() => {
+      this.isLoading = false;
+    }, () => {
       this.isLoading = false;
     });
   }

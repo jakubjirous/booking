@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { IPlaceLocation } from '../../models/location.models';
 import { IFetchedPlace, Place } from '../../models/place.model';
 import { AuthService } from '../auth/auth.service';
 
@@ -83,7 +84,8 @@ export class PlacesService {
             response?.price,
             new Date(response?.availableFrom),
             new Date(response?.availableTo),
-            response?.userId
+            response?.userId,
+            response?.location
           );
         })
       );
@@ -112,7 +114,8 @@ export class PlacesService {
                   place?.price,
                   new Date(place?.availableFrom),
                   new Date(place?.availableTo),
-                  place?.userId
+                  place?.userId,
+                  place?.location,
                 )
               );
             }
@@ -131,7 +134,8 @@ export class PlacesService {
     description: string,
     price: number,
     availableFrom: Date,
-    availableTo: Date
+    availableTo: Date,
+    location: IPlaceLocation
   ): Observable<Place[]> {
     let generatedId: string;
 
@@ -143,7 +147,8 @@ export class PlacesService {
       price,
       availableFrom,
       availableTo,
-      this.authService.userId
+      this.authService.userId,
+      location
     );
 
     return this.httpClient
@@ -199,7 +204,8 @@ export class PlacesService {
           prevPlace.price,
           prevPlace.availableFrom,
           prevPlace.availableTo,
-          prevPlace.userId
+          prevPlace.userId,
+          prevPlace.location,
         );
 
         return this.httpClient.put(

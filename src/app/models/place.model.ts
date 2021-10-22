@@ -1,3 +1,5 @@
+import { IPlaceLocation } from './location.models';
+
 export class Place {
   constructor(
     public id: string,
@@ -7,7 +9,8 @@ export class Place {
     public price: number,
     public availableFrom: Date,
     public availableTo: Date,
-    public userId: string
+    public userId: string,
+    public location: IPlaceLocation,
   ) {}
 }
 
@@ -19,4 +22,5 @@ export interface IFetchedPlace {
   availableFrom: string;
   availableTo: string;
   userId: string;
+  location: IPlaceLocation;
 }

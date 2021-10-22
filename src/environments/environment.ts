@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://ionic-angular-booking-18179-default-rtdb.firebaseio.com/',
+  googleMapsApiKey: 'AIzaSyCEKl4cyNXQ92xdZV5Jt3NbjkmlGhxzdhQ',
 };
 
 /*
