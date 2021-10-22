@@ -33,10 +33,17 @@
         size="12" size-sm="8" offset-sm="2" size-md="6" offset-md="3"
         class="ion-text-center ion-padding ion-margin-vertical"
       >
-        <ion-text *ngIf="!isAllPlaces">
-          There are no bookable places right now,<br>
-          please come back later!
-        </ion-text>
+        <div *ngIf="!isAllPlaces" class="lotties-wrapper">
+          <ion-text class="ion-margin-bottom">
+            There are no bookable places right now,<br>
+            please come back later!
+          </ion-text>
+          <ng-lottie
+            class="ion-margin-top"
+            [options]="options"
+            (animationCreated)="animationCreated()">
+          </ng-lottie>
+        </div>
         <ion-text *ngIf="isAllPlaces">
           There are no places right now,<br>
           please come back later!

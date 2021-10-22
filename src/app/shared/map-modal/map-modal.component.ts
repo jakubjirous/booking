@@ -1,7 +1,8 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef, OnDestroy,
+  ElementRef,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild,

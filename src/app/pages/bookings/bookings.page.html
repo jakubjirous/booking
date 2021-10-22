@@ -22,13 +22,16 @@
         size="12" size-md="8" offset-md="2" size-lg="6" offset-lg="3"
         class="ion-text-center ion-padding ion-margin-vertical"
       >
-        <ion-text>
-          No Bookings found!
-        </ion-text>
-        <ng-lottie
-          [options]="options"
-          (animationCreated)="animationCreated($event)">
-        </ng-lottie>
+        <div class="lotties-wrapper">
+          <ion-text class="ion-margin-bottom">
+            No Bookings found!
+          </ion-text>
+          <ng-lottie
+            class="ion-margin-top"
+            [options]="options"
+            (animationCreated)="animationCreated()">
+          </ng-lottie>
+        </div>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="!isLoading && loadedBookings && loadedBookings?.length > 0">

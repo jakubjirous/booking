@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { SegmentChangeEventDetail } from '@ionic/core';
+import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
 import { Place } from '../../../models/place.model';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -19,12 +20,15 @@ export class DiscoverPage implements OnInit, OnDestroy {
   isAllPlaces: boolean = true;
   private loadedPlacesSubs: Subscription;
 
+  options: AnimationOptions = {
+    path: '/assets/lotties/place.json',
+  };
+
   constructor(
     private placesService: PlacesService,
     private menuCtrl: MenuController,
     private authService: AuthService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadedPlacesSubs = this.placesService.places.subscribe((places) => {
@@ -36,11 +40,14 @@ export class DiscoverPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.isLoading = true;
-    this.placesService.fetchPlaces().subscribe(() => {
-      this.isLoading = false;
-    }, () => {
-      this.isLoading = false;
-    });
+    this.placesService.fetchPlaces().subscribe(
+      () => {
+        this.isLoading = false;
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
   }
 
   onOpenMenu(): void {
@@ -60,6 +67,8 @@ export class DiscoverPage implements OnInit, OnDestroy {
       this.listedLoadedPlaces = this.relevantPlaces.slice(1);
     }
   }
+
+  animationCreated(): void {}
 
   ngOnDestroy(): void {
     if (this.loadedPlacesSubs) {

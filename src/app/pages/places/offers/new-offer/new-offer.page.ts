@@ -17,8 +17,7 @@ export class NewOfferPage implements OnInit {
     private placesService: PlacesService,
     private router: Router,
     private loadingCtrl: LoadingController
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.formFactory();
@@ -43,7 +42,7 @@ export class NewOfferPage implements OnInit {
             +this.form.value.price,
             new Date(this.form.value.dateFrom),
             new Date(this.form.value.dateTo),
-            this.form.value.location,
+            this.form.value.location
           )
           .subscribe(() => {
             this.loadingCtrl.dismiss();
@@ -56,8 +55,8 @@ export class NewOfferPage implements OnInit {
   onLocationPicked(location: IPlaceLocation) {
     // updating out internal form object to hold that location
     this.form?.patchValue({
-      location: location
-    })
+      location: location,
+    });
   }
 
   private formFactory(): void {

@@ -10,7 +10,7 @@ export class Place {
     public availableFrom: Date,
     public availableTo: Date,
     public userId: string,
-    public location: IPlaceLocation,
+    public location: IPlaceLocation
   ) {}
 }
 

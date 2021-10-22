@@ -115,7 +115,7 @@ export class PlacesService {
                   new Date(place?.availableFrom),
                   new Date(place?.availableTo),
                   place?.userId,
-                  place?.location,
+                  place?.location
                 )
               );
             }
@@ -205,7 +205,7 @@ export class PlacesService {
           prevPlace.availableFrom,
           prevPlace.availableTo,
           prevPlace.userId,
-          prevPlace.location,
+          prevPlace.location
         );
 
         return this.httpClient.put(

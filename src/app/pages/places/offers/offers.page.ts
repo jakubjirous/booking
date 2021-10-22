@@ -25,11 +25,14 @@ export class OffersPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.isLoading = true;
-    this.placesService.fetchPlaces().subscribe(() => {
-      this.isLoading = false;
-    }, () => {
-      this.isLoading = false;
-    });
+    this.placesService.fetchPlaces().subscribe(
+      () => {
+        this.isLoading = false;
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
   }
 
   onEdit(offerId: string, slidingEl: IonItemSliding): void {
