@@ -24,3 +24,8 @@ export interface IFetchedPlace {
   userId: string;
   location: IPlaceLocation;
 }
+
+export interface IFetchedImage {
+  imageUrl: string;
+  imagePath: string;
+}

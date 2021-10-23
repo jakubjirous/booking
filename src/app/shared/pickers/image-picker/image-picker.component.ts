@@ -1,4 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
@@ -46,7 +54,7 @@ export class ImagePickerComponent implements OnInit {
       })
       .catch((error) => {
         console.log(error);
-         if (this.filePickerRef) {
+        if (this.filePickerRef) {
           this.filePickerRef.nativeElement.click();
         }
         return false;

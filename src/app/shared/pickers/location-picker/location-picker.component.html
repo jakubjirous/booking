@@ -7,7 +7,7 @@
     *ngIf="selectedLocationImage && !isLoading && showPreview"
     (click)="onPickLocation()"
   ></ion-img>
-  <ion-button color="primary" (click)="onPickLocation()" *ngIf="(!selectedLocationImage && !isLoading) || !showPreview">
+  <ion-button color="primary" (click)="onPickLocation()" *ngIf="(!selectedLocationImage || !showPreview) && !isLoading">
     <ion-icon name="map" slot="start"></ion-icon>
     <ion-label>Select Location</ion-label>
   </ion-button>

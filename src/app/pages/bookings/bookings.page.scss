@@ -1,3 +1,5 @@
+@import '../../../theme/mixins';
+
 .booking {
   font-size: 14px;
   h5 {
@@ -5,11 +7,14 @@
   }
 
   ion-avatar {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
   }
 
   &__guests {
+    margin: 0.25rem 0;
+    font-size: 14px;
+
     ion-icon {
       margin-right: 0.5rem;
     }
@@ -17,16 +22,35 @@
 
   &__dates {
     display: flex;
-    align-items: center;
+    flex-flow: column;
+    align-items: flex-start;
     justify-content: flex-start;
     margin-right: 0.5rem;
+    font-size: 14px;
 
     ion-icon {
       margin-right: 0.5rem;
     }
 
     span {
-      margin: 0 0.5rem;
+      display: inline-block;
+      margin: 0.25rem 0;
+    }
+  }
+
+  @include sm() {
+    &__guests {
+      font-size: inherit;
+      margin-bottom: 0;
+    }
+
+    &__dates {
+      font-size: inherit;
+      flex-flow: row;
+      align-items: center;
+      span {
+        margin: 0 0.5rem;
+      }
     }
   }
 }

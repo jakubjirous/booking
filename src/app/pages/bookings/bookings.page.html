@@ -49,11 +49,17 @@
                   Guests: {{ booking?.guestNumber }}
                 </div>
                 <div class="booking__dates">
-                  <ion-icon name="calendar-outline" color="primary"></ion-icon>
-                  <ion-text color="secondary">{{ booking?.bookedFrom | date }}</ion-text>
-                  <span>to</span>
-                  <ion-icon name="calendar" color="primary"></ion-icon>
-                  <ion-text color="secondary">{{ booking?.bookedTo | date }}</ion-text>
+                  <div>
+                    <ion-icon name="calendar-outline" color="primary"></ion-icon>
+                    <ion-text color="secondary">{{ booking?.bookedFrom | date }}</ion-text>
+                  </div>
+                  <div>
+                    <span>to</span>
+                  </div>
+                  <div>
+                    <ion-icon name="calendar" color="primary"></ion-icon>
+                    <ion-text color="secondary">{{ booking?.bookedTo | date }}</ion-text>
+                  </div>
                 </div>
               </ion-label>
             </ion-item>

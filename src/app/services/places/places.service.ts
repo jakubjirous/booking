@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { IPlaceLocation } from '../../models/location.models';
-import { IFetchedPlace, Place } from '../../models/place.model';
+import { IFetchedImage, IFetchedPlace, Place } from '../../models/place.model';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -20,6 +20,16 @@ export class PlacesService {
 
   get places(): Observable<Place[]> {
     return this._places.asObservable();
+  }
+
+  uploadImage(image: File): Observable<IFetchedImage> {
+    const uploadData = new FormData();
+    uploadData.append('image', image);
+
+    return this.httpClient.post<IFetchedImage>(
+      `${environment.firebase}/storeImage`,
+      uploadData
+    );
   }
 
   getPlace(placeId: string): Observable<Place> {
@@ -92,7 +102,8 @@ export class PlacesService {
     price: number,
     availableFrom: Date,
     availableTo: Date,
-    location: IPlaceLocation
+    location: IPlaceLocation,
+    imageUrl: string
   ): Observable<Place[]> {
     let generatedId: string;
 
@@ -100,7 +111,7 @@ export class PlacesService {
       Math.random().toString(),
       title,
       description,
-      'https://media.istockphoto.com/photos/new-york-city-nyc-usa-picture-id615398376?b=1&k=20&m=615398376&s=170667a&w=0&h=v59Pfuvn4jTqysv0RYKsYhoUM_ayitgQIsG8cFg3rM8=',
+      imageUrl,
       price,
       availableFrom,
       availableTo,

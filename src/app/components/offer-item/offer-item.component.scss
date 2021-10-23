@@ -1,19 +1,43 @@
+@import '../../../theme/mixins';
+
+ion-thumbnail {
+  width: 66px;
+  height: 66px;
+}
+
 h1 {
   font-size: 18px;
-  padding: 0.5rem;
   color: var(--ion-color-primary);
+  padding-bottom: 0.5rem;
+  @include sm() {
+    padding: 0.5rem;
+  }
 }
 
 .offer-details {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 14px;
 
   ion-icon {
     margin-right: 0.5rem;
   }
 
   span {
-    margin: 0 0.5rem;
+    display: inline-block;
+    margin: 0.25rem 0;
+  }
+
+  @include sm() {
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    font-size: inherit;
+
+    span {
+      margin: 0 0.5rem;
+    }
   }
 }

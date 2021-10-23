@@ -4,8 +4,10 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'https://ionic-angular-booking-firebase-default-rtdb.firebaseio.com/',
+  apiUrl: 'https://ionic-angular-booking-firebase-default-rtdb.firebaseio.com',
   googleMapsApiKey: 'AIzaSyBMF3zITBxv3l3uciJ9arBRCnfOw5jxip0', // for ios
+  firebase:
+    'https://us-central1-ionic-angular-booking-firebase.cloudfunctions.net', // storeImage
 };
 
 /*

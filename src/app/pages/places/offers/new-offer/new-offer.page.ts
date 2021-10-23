@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { switchMap } from 'rxjs/operators';
 import { IPlaceLocation } from '../../../../models/location.models';
 import { PlacesService } from '../../../../services/places/places.service';
 import { UtilsService } from '../../../../services/utils/utils.service';
@@ -19,8 +20,7 @@ export class NewOfferPage implements OnInit {
     private router: Router,
     private loadingCtrl: LoadingController,
     private utilsService: UtilsService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.formFactory();
@@ -39,17 +39,23 @@ export class NewOfferPage implements OnInit {
         loadingEl.present();
 
         this.placesService
-          .addPlace(
-            this.form.value.title,
-            this.form.value.description,
-            +this.form.value.price,
-            new Date(this.form.value.dateFrom),
-            new Date(this.form.value.dateTo),
-            this.form.value.location
+          .uploadImage(this.form?.get('image')?.value)
+          .pipe(
+            switchMap((uploadResponse) => {
+              return this.placesService.addPlace(
+                this.form?.value?.title,
+                this.form?.value?.description,
+                +this.form?.value?.price,
+                new Date(this.form?.value?.dateFrom),
+                new Date(this.form?.value?.dateTo),
+                this.form?.value?.location,
+                uploadResponse?.imageUrl
+              );
+            })
           )
           .subscribe(() => {
             this.loadingCtrl.dismiss();
-            this.form.reset();
+            this.form?.reset();
             this.router.navigateByUrl('/places/tabs/offers');
           });
       });
@@ -67,13 +73,16 @@ export class NewOfferPage implements OnInit {
     if (typeof imageData === 'string') {
       // conversion to file
       try {
-        imageFile = this.utilsService.base64toBlob(imageData.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
+        imageFile = this.utilsService.base64toBlob(
+          imageData.replace('data:image/jpeg;base64,', ''),
+          'image/jpeg'
+        );
       } catch (error) {
         console.log(error);
         return;
       }
     } else {
-      imageFile = imageData
+      imageFile = imageData;
     }
 
     this.form?.patchValue({ image: imageFile });
