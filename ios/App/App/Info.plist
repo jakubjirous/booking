@@ -6,6 +6,12 @@
   <string>Always allow Geolocation?</string>
   <key>NSLocationWhenInUseUsageDescription</key>
   <string>Always Geolocation?</string>
+  <key>NSCameraUsageDescription</key>
+  <string>To Take Photos and Videos</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>To Photo Library Usage</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>To Photo Library Usage</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

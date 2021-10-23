@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { IPlaceLocation } from '../../../../models/location.models';
 import { PlacesService } from '../../../../services/places/places.service';
+import { UtilsService } from '../../../../services/utils/utils.service';
 
 @Component({
   selector: 'app-new-offer',
@@ -16,15 +17,17 @@ export class NewOfferPage implements OnInit {
   constructor(
     private placesService: PlacesService,
     private router: Router,
-    private loadingCtrl: LoadingController
-  ) {}
+    private loadingCtrl: LoadingController,
+    private utilsService: UtilsService
+  ) {
+  }
 
   ngOnInit(): void {
     this.formFactory();
   }
 
   onCreateOffer(): void {
-    if (!this.form?.valid) {
+    if (!this.form?.valid || !this.form?.get('image')?.value) {
       return;
     }
 
@@ -59,6 +62,23 @@ export class NewOfferPage implements OnInit {
     });
   }
 
+  onImagePicked(imageData: string | File) {
+    let imageFile;
+    if (typeof imageData === 'string') {
+      // conversion to file
+      try {
+        imageFile = this.utilsService.base64toBlob(imageData.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+    } else {
+      imageFile = imageData
+    }
+
+    this.form?.patchValue({ image: imageFile });
+  }
+
   private formFactory(): void {
     this.form = new FormGroup({
       title: new FormControl(null, {
@@ -84,6 +104,9 @@ export class NewOfferPage implements OnInit {
       location: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required],
+      }),
+      image: new FormControl(null, {
+        updateOn: 'blur',
       }),
     });
   }

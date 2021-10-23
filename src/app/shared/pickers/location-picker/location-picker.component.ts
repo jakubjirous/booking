@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { Geolocation } from '@capacitor/geolocation';
 import {
@@ -20,6 +20,7 @@ import { MapModalComponent } from '../../map-modal/map-modal.component';
 })
 export class LocationPickerComponent implements OnInit {
   @Output() locationPick = new EventEmitter<IPlaceLocation>();
+  @Input() showPreview: boolean = false;
   selectedLocationImage: string;
   isLoading: boolean = false;
 
