@@ -13,3 +13,14 @@ export class User {
     return this._token;
   }
 }
+
+export interface IAuthData {
+  userId: string;
+  email: string;
+  token: string;
+  tokenExpirationTime: string;
+}
+
+export enum StorageKey {
+  AUTH_DATA = 'authData',
+}
