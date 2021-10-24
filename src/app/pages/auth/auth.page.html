@@ -76,9 +76,8 @@
                   color="primary"
                   expand="block"
                   [disabled]="!form.valid"
-                  (click)="onLogin()"
                 >
-                  Login
+                  {{ isLoginMode ? 'Login' : 'Signup' }}
                 </ion-button>
               </div>
             </ion-card-content>

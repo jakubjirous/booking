@@ -87,6 +87,8 @@ yarn run prettier:write
 - [Official Angular HttpClient Docs](https://angular.io/guide/http)
 - [Official Google Maps JS SDK Docs](https://developers.google.com/maps/documentation/javascript/tutorial)
 - [Google Maps Pricing](https://cloud.google.com/maps-platform/pricing/)
+- [Official Capacitor Docs](https://capacitor.ionicframework.com)
+- [Official Cloud Functions Docs](https://firebase.google.com/docs/functions/)
 
 ## Android Config:
 

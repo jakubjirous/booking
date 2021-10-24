@@ -3,6 +3,7 @@ import { MenuController } from '@ionic/angular';
 import { SegmentChangeEventDetail } from '@ionic/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { Place } from '../../../models/place.model';
 import { AuthService } from '../../../services/auth/auth.service';
 import { PlacesService } from '../../../services/places/places.service';
@@ -18,11 +19,10 @@ export class DiscoverPage implements OnInit, OnDestroy {
   relevantPlaces: Place[];
   isLoading: boolean;
   isAllPlaces: boolean = true;
-  private loadedPlacesSubs: Subscription;
-
   options: AnimationOptions = {
     path: '/assets/lotties/place.json',
   };
+  private loadedPlacesSubs: Subscription;
 
   constructor(
     private placesService: PlacesService,
@@ -55,17 +55,19 @@ export class DiscoverPage implements OnInit, OnDestroy {
   }
 
   onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>): void {
-    if (event?.detail?.value === 'all') {
-      this.isAllPlaces = true;
-      this.relevantPlaces = this.loadedPlaces;
-      this.listedLoadedPlaces = this.relevantPlaces.slice(1);
-    } else {
-      this.isAllPlaces = false;
-      this.relevantPlaces = this.loadedPlaces.filter(
-        (place) => place?.userId !== this.authService.userId
-      );
-      this.listedLoadedPlaces = this.relevantPlaces.slice(1);
-    }
+    this.authService.userId.pipe(take(1)).subscribe((userId) => {
+      if (event?.detail?.value === 'all') {
+        this.isAllPlaces = true;
+        this.relevantPlaces = this.loadedPlaces;
+        this.listedLoadedPlaces = this.relevantPlaces.slice(1);
+      } else {
+        this.isAllPlaces = false;
+        this.relevantPlaces = this.loadedPlaces.filter(
+          (place) => place?.userId !== userId
+        );
+        this.listedLoadedPlaces = this.relevantPlaces.slice(1);
+      }
+    });
   }
 
   animationCreated(): void {}

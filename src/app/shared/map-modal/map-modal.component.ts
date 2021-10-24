@@ -80,7 +80,6 @@ export class MapModalComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       })
       .catch((error) => {
-        // TODO: error handling (Jakub Jirous 2021-10-21 15:26:59)
         console.log(error);
       });
   }

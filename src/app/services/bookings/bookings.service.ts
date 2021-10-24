@@ -33,41 +33,47 @@ export class BookingsService {
   }
 
   fetchBookings(): Observable<Booking[]> {
-    return this.httpClient
-      .get<{ [key: string]: IFetchedBooking }>(
-        `${environment.apiUrl}/bookings.json?orderBy="userId"&equalTo="${this.authService.userId}"`
-      )
-      .pipe(
-        map((response) => {
-          if (!response) {
-            throw throwError(response);
-          }
+    return this.authService.userId.pipe(
+      take(1),
+      switchMap((userId) => {
+        if (!userId) {
+          throw new Error('No user ID found!');
+        }
 
-          const bookings: Booking[] = [];
-          for (const [bookingId, booking] of Object.entries(response)) {
-            if (response.hasOwnProperty(bookingId)) {
-              bookings.push(
-                new Booking(
-                  bookingId,
-                  booking?.placeId,
-                  booking?.userId,
-                  booking?.placeTitle,
-                  booking?.placeImage,
-                  booking?.firstName,
-                  booking?.lastName,
-                  +booking?.guestNumber,
-                  new Date(booking?.bookedFrom),
-                  new Date(booking?.bookedTo)
-                )
-              );
-            }
+        return this.httpClient.get<{ [key: string]: IFetchedBooking }>(
+          `${environment.apiUrl}/bookings.json?orderBy="userId"&equalTo="${userId}"`
+        );
+      }),
+      map((response) => {
+        if (!response) {
+          throw throwError(response);
+        }
+
+        const bookings: Booking[] = [];
+        for (const [bookingId, booking] of Object.entries(response)) {
+          if (response.hasOwnProperty(bookingId)) {
+            bookings.push(
+              new Booking(
+                bookingId,
+                booking?.placeId,
+                booking?.userId,
+                booking?.placeTitle,
+                booking?.placeImage,
+                booking?.firstName,
+                booking?.lastName,
+                +booking?.guestNumber,
+                new Date(booking?.bookedFrom),
+                new Date(booking?.bookedTo)
+              )
+            );
           }
-          return bookings;
-        }),
-        tap((bookings) => {
-          this._bookings.next(bookings);
-        })
-      );
+        }
+        return bookings;
+      }),
+      tap((bookings) => {
+        this._bookings.next(bookings);
+      })
+    );
   }
 
   addBooking(
@@ -81,40 +87,48 @@ export class BookingsService {
     dateTo: Date
   ): Observable<Booking[]> {
     let generatedId: string;
+    let newBooking: Booking;
 
-    const newBooking = new Booking(
-      Math.random().toString(),
-      placeId,
-      this.authService.userId,
-      placeTitle,
-      placeImage,
-      firstName,
-      lastName,
-      guestNumber,
-      dateFrom,
-      dateTo
-    );
+    return this.authService.userId.pipe(
+      take(1),
+      switchMap((userId) => {
+        if (!userId) {
+          throw new Error('No user ID found!');
+        }
 
-    return this.httpClient
-      .post<{ name: string }>(`${environment.apiUrl}/bookings.json`, {
-        ...newBooking,
-        id: null,
-      })
-      .pipe(
-        switchMap((response) => {
-          if (!response) {
-            throw throwError(response);
+        newBooking = new Booking(
+          Math.random().toString(),
+          placeId,
+          userId,
+          placeTitle,
+          placeImage,
+          firstName,
+          lastName,
+          guestNumber,
+          dateFrom,
+          dateTo
+        );
+        return this.httpClient.post<{ name: string }>(
+          `${environment.apiUrl}/bookings.json`,
+          {
+            ...newBooking,
+            id: null,
           }
-
-          generatedId = response?.name;
-          return this.bookings;
-        }),
-        take(1),
-        tap((bookings) => {
-          newBooking.id = generatedId;
-          this._bookings.next(bookings.concat(newBooking));
-        })
-      );
+        );
+      }),
+      switchMap((response) => {
+        if (!response) {
+          throw throwError(response);
+        }
+        generatedId = response?.name;
+        return this.bookings;
+      }),
+      take(1),
+      tap((bookings) => {
+        newBooking.id = generatedId;
+        this._bookings.next(bookings.concat(newBooking));
+      })
+    );
   }
 
   cancelBooking(bookingId: string): Observable<Booking[]> {

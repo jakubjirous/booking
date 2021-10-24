@@ -9,6 +9,7 @@ import {
   ToastController,
 } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 import { CreateBookingComponent } from '../../../../components/create-booking/create-booking.component';
 import { BookingMode } from '../../../../models/booking.model';
 import { Place } from '../../../../models/place.model';
@@ -51,45 +52,51 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
       }
       this.isLoading = true;
       this.placeId = paramMap?.get('placeId');
-      this.placeSubs = this.placesService.getPlace(this.placeId).subscribe(
-        (place) => {
-          this.isLoading = false;
-          this.place = place;
-          this.isBookable = place?.userId !== this.authService.userId;
-        },
-        (error) => {
-          console.log(error);
+      let fetchedUserId: string;
+      this.authService.userId
+        .pipe(
+          take(1),
+          switchMap((userId) => {
+            if (!userId) {
+              throw new Error('No user ID found!');
+            }
+            fetchedUserId = userId;
 
-          this.alertCtrl
-            .create({
-              header: 'An error occurred!',
-              message:
-                'Could not load the place detail, please try again later.',
-              buttons: [
-                {
-                  text: 'Okay',
-                  handler: () => {
-                    this.router.navigateByUrl('/places/tabs/discover');
+            return this.placesService.getPlace(this.placeId);
+          })
+        )
+        .subscribe(
+          (place) => {
+            this.isLoading = false;
+            this.place = place;
+            this.isBookable = place?.userId !== fetchedUserId;
+          },
+          (error) => {
+            console.log(error);
+
+            this.alertCtrl
+              .create({
+                header: 'An error occurred!',
+                message:
+                  'Could not load the place detail, please try again later.',
+                buttons: [
+                  {
+                    text: 'Okay',
+                    handler: () => {
+                      this.router.navigateByUrl('/places/tabs/discover');
+                    },
                   },
-                },
-              ],
-            })
-            .then((alertEl) => {
-              alertEl.present();
-            });
-        }
-      );
+                ],
+              })
+              .then((alertEl) => {
+                alertEl.present();
+              });
+          }
+        );
     });
   }
 
   onBookPlace(): void {
-    // this.router.navigateByUrl('/places/tabs/discover');
-    // this.navCtrl.navigateBack('/places/tabs/discover');
-
-    // you need previous page in stack
-    // this.navCtrl.pop();
-
-    // new action sheet
     this.actionSheetCtrl
       .create({
         header: 'Choose an Action',

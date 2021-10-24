@@ -27,7 +27,7 @@ export class PlacesService {
     uploadData.append('image', image);
 
     return this.httpClient.post<IFetchedImage>(
-      `${environment.firebase}/storeImage`,
+      `${environment.firebase.cloudFunctions}/storeImage`,
       uploadData
     );
   }
@@ -106,39 +106,48 @@ export class PlacesService {
     imageUrl: string
   ): Observable<Place[]> {
     let generatedId: string;
+    let newPlace: Place;
 
-    const newPlace = new Place(
-      Math.random().toString(),
-      title,
-      description,
-      imageUrl,
-      price,
-      availableFrom,
-      availableTo,
-      this.authService.userId,
-      location
-    );
+    return this.authService.userId.pipe(
+      switchMap((userId) => {
+        if (!userId) {
+          throw new Error('No user ID found!');
+        }
 
-    return this.httpClient
-      .post<{ name: string }>(`${environment.apiUrl}/offered-places.json`, {
-        ...newPlace,
-        id: null,
-      })
-      .pipe(
-        switchMap((response) => {
-          if (!response) {
-            throw throwError(response);
+        newPlace = new Place(
+          Math.random().toString(),
+          title,
+          description,
+          imageUrl,
+          price,
+          availableFrom,
+          availableTo,
+          userId,
+          location
+        );
+
+        return this.httpClient.post<{ name: string }>(
+          `${environment.apiUrl}/offered-places.json`,
+          {
+            ...newPlace,
+            id: null,
           }
+        );
+      }),
+      switchMap((response) => {
+        if (!response) {
+          throw throwError(response);
+        }
 
-          generatedId = response?.name;
-          return this.places;
-        }),
-        take(1),
-        tap((places) => {
-          newPlace.id = generatedId;
-          this._places.next(places.concat(newPlace));
-        })
-      );
+        generatedId = response?.name;
+        return this.places;
+      }),
+      take(1),
+      tap((places) => {
+        newPlace.id = generatedId;
+        this._places.next(places.concat(newPlace));
+      })
+    );
   }
 
   updatePlace(
