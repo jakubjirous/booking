@@ -2,6 +2,10 @@
 
 Booking app with Angular, Capacitor and the Ionic Framework
 
+Live App: 
+- https://ionic-angular-booking-firebase.web.app
+ 
+
 ## Commands:
 
 ### Ionic Start
