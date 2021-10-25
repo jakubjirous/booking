@@ -90,6 +90,10 @@ yarn run prettier:write
 - [Official Capacitor Docs](https://capacitor.ionicframework.com)
 - [Official Cloud Functions Docs](https://firebase.google.com/docs/functions/)
 - [JSON Web Tokens](https://jwt.io/)
+- [ApeTools - Icons & SplashScreen Generator](https://apetools.webprofusion.com/#/tools/imagegorilla)
+- [Ionic iOS Publishing Docs](https://ionicframework.com/docs/publishing/app-store)
+- [Ionic Android Publishing Docs](https://ionicframework.com/docs/publishing/play-store)
+- [Ionic PWA Publishing Docs](https://ionicframework.com/docs/publishing/progressive-web-app)
 
 ## Android Config:
 
