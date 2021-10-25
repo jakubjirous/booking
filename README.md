@@ -89,6 +89,7 @@ yarn run prettier:write
 - [Google Maps Pricing](https://cloud.google.com/maps-platform/pricing/)
 - [Official Capacitor Docs](https://capacitor.ionicframework.com)
 - [Official Cloud Functions Docs](https://firebase.google.com/docs/functions/)
+- [JSON Web Tokens](https://jwt.io/)
 
 ## Android Config:
 
