@@ -71,9 +71,7 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
             this.place = place;
             this.isBookable = place?.userId !== fetchedUserId;
           },
-          (error) => {
-            console.log(error);
-
+          () => {
             this.alertCtrl
               .create({
                 header: 'An error occurred!',

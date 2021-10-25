@@ -12,6 +12,13 @@ export class User {
     }
     return this._token;
   }
+
+  get tokenDuration(): number {
+    if (!this.token) {
+      return 0;
+    }
+    return this.tokenExpirationData.getTime() - new Date().getTime();
+  }
 }
 
 export interface IAuthData {

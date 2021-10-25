@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Storage } from '@capacitor/storage';
 import firebase from 'firebase/compat';
@@ -10,8 +10,9 @@ import UserCredential = firebase.auth.UserCredential;
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
   private _user = new BehaviorSubject<User>(null);
+  private activeLogoutTimer: any;
 
   constructor(private ngFireAuth: AngularFireAuth) {}
 
@@ -51,6 +52,7 @@ export class AuthService {
       tap((user) => {
         if (user) {
           this._user.next(user);
+          this.autoLogout(user.tokenDuration);
         }
       }),
       map((user) => {
@@ -72,20 +74,40 @@ export class AuthService {
   }
 
   logout(): void {
+    if (this.activeLogoutTimer) {
+      clearTimeout(this.activeLogoutTimer);
+    }
+    Storage.remove({ key: StorageKey.AUTH_DATA });
     this._user.next(null);
+  }
+
+  ngOnDestroy(): void {
+    // preventing memory leaks
+    if (this.activeLogoutTimer) {
+      clearTimeout(this.activeLogoutTimer);
+    }
+  }
+
+  private autoLogout(duration: number): void {
+    if (this.activeLogoutTimer) {
+      clearTimeout(this.activeLogoutTimer);
+    }
+    this.activeLogoutTimer = setTimeout(() => {
+      this.logout();
+    }, duration);
   }
 
   private setUserData(userCredential: UserCredential): void {
     userCredential?.user?.getIdTokenResult().then((token) => {
       const expirationTime = new Date(token?.expirationTime);
-      this._user.next(
-        new User(
-          token?.claims?.user_id,
-          token?.claims?.email,
-          token?.token,
-          expirationTime
-        )
+      const user = new User(
+        token?.claims?.user_id,
+        token?.claims?.email,
+        token?.token,
+        expirationTime
       );
+      this._user.next(user);
+      this.autoLogout(user.tokenDuration);
       this.storeAuthData(
         token?.claims?.user_id,
         token?.claims?.email,
