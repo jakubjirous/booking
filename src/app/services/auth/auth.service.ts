@@ -28,6 +28,12 @@ export class AuthService implements OnDestroy {
       .pipe(map((user) => (user ? user.id : null)));
   }
 
+  get token(): Observable<string> {
+    return this._user
+      .asObservable()
+      .pipe(map((user) => (user ? user.token : null)));
+  }
+
   autoLogin(): Observable<boolean> {
     return from(Storage.get({ key: StorageKey.AUTH_DATA })).pipe(
       map((storedData) => {

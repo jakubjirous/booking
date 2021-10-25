@@ -26,74 +26,88 @@ export class PlacesService {
     const uploadData = new FormData();
     uploadData.append('image', image);
 
-    return this.httpClient.post<IFetchedImage>(
-      `${environment.firebase.cloudFunctions}/storeImage`,
-      uploadData
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.httpClient.post<IFetchedImage>(
+          `${environment.firebase.cloudFunctions}/storeImage`,
+          uploadData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      })
     );
   }
 
   getPlace(placeId: string): Observable<Place> {
-    return this.httpClient
-      .get<IFetchedPlace>(
-        `${environment.apiUrl}/offered-places/${placeId}.json`
-      )
-      .pipe(
-        map((response) => {
-          if (!response) {
-            throw throwError(response);
-          }
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.httpClient.get<IFetchedPlace>(
+          `${environment.apiUrl}/offered-places/${placeId}.json?auth=${token}`
+        );
+      }),
+      map((response) => {
+        if (!response) {
+          throw throwError(response);
+        }
 
-          return new Place(
-            placeId,
-            response?.title,
-            response?.description,
-            response?.imageUrl,
-            response?.price,
-            new Date(response?.availableFrom),
-            new Date(response?.availableTo),
-            response?.userId,
-            response?.location
-          );
-        })
-      );
+        return new Place(
+          placeId,
+          response?.title,
+          response?.description,
+          response?.imageUrl,
+          response?.price,
+          new Date(response?.availableFrom),
+          new Date(response?.availableTo),
+          response?.userId,
+          response?.location
+        );
+      })
+    );
   }
 
   fetchPlaces(): Observable<Place[]> {
-    return this.httpClient
-      .get<{ [key: string]: IFetchedPlace }>(
-        `${environment.apiUrl}/offered-places.json`
-      )
-      .pipe(
-        map((response) => {
-          if (!response) {
-            throw throwError(response);
-          }
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.httpClient.get<{ [key: string]: IFetchedPlace }>(
+          `${environment.apiUrl}/offered-places.json?auth=${token}`
+        );
+      }),
+      map((response) => {
+        if (!response) {
+          throw throwError(response);
+        }
 
-          const places: Place[] = [];
-          for (const [placeId, place] of Object.entries(response)) {
-            if (response.hasOwnProperty(placeId)) {
-              places.push(
-                new Place(
-                  placeId,
-                  place?.title,
-                  place?.description,
-                  place?.imageUrl,
-                  place?.price,
-                  new Date(place?.availableFrom),
-                  new Date(place?.availableTo),
-                  place?.userId,
-                  place?.location
-                )
-              );
-            }
+        const places: Place[] = [];
+        for (const [placeId, place] of Object.entries(response)) {
+          if (response.hasOwnProperty(placeId)) {
+            places.push(
+              new Place(
+                placeId,
+                place?.title,
+                place?.description,
+                place?.imageUrl,
+                place?.price,
+                new Date(place?.availableFrom),
+                new Date(place?.availableTo),
+                place?.userId,
+                place?.location
+              )
+            );
           }
-          return places;
-          // return [];
-        }),
-        tap((places) => {
-          this._places.next(places);
-        })
-      );
+        }
+        return places;
+        // return [];
+      }),
+      tap((places) => {
+        this._places.next(places);
+      })
+    );
   }
 
   addPlace(
@@ -107,6 +121,7 @@ export class PlacesService {
   ): Observable<Place[]> {
     let generatedId: string;
     let newPlace: Place;
+    let fetchedUserId: string;
 
     return this.authService.userId.pipe(
       take(1),
@@ -114,7 +129,11 @@ export class PlacesService {
         if (!userId) {
           throw new Error('No user ID found!');
         }
-
+        fetchedUserId = userId;
+        return this.authService.token;
+      }),
+      take(1),
+      switchMap((token) => {
         newPlace = new Place(
           Math.random().toString(),
           title,
@@ -123,12 +142,12 @@ export class PlacesService {
           price,
           availableFrom,
           availableTo,
-          userId,
+          fetchedUserId,
           location
         );
 
         return this.httpClient.post<{ name: string }>(
-          `${environment.apiUrl}/offered-places.json`,
+          `${environment.apiUrl}/offered-places.json?auth=${token}`,
           {
             ...newPlace,
             id: null,
@@ -157,8 +176,14 @@ export class PlacesService {
     description: string
   ): Observable<Place[]> {
     let updatedPlaces: Place[];
+    let fetchedToken: string;
 
-    return this.places.pipe(
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        fetchedToken = token;
+        return this.places;
+      }),
       take(1),
       switchMap((places) => {
         if (!places || places?.length <= 0) {
@@ -187,7 +212,7 @@ export class PlacesService {
         );
 
         return this.httpClient.put(
-          `${environment.apiUrl}/offered-places/${placeId}.json`,
+          `${environment.apiUrl}/offered-places/${placeId}.json?auth=${fetchedToken}`,
           {
             ...updatedPlaces[updatedPlaceIndex],
             id: null,

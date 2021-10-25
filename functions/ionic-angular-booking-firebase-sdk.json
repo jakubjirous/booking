@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ionic-angular-booking-firebase",
+  "private_key_id": "16fc74cbf0851c6011ba225bfde057d80ba96fff",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCqp9Ap41aQwUUm\n99H/pv56aWTN9gIpLT9RA4KMSp+Ky7nphl6zp+82mWw/tNY395LcrUXicRHiE+UV\nOO4uxohY7wflKcFsgsIVrYrUgpYePQ6PhFyhnBL+Ah1EEtmbWkX/Jx4GfQcOtg+k\nWDTaEb1+2rUAbvu8SffKmqml0fcoSk3f9nByMCzw48RhZtsEvrISrCgkoRLhnih0\npEC6cYLPcqoAxEHCeIwFx7SM7CtiYaWoa26wFzlh1QlWhACde9XTCdcwYaXPZrua\nv6jFFT4b3k8dgK4LH3fnsVSfZAY7+vIlcdWQP2Zy2lCnLtk31j5zL0EO/aLr5IiW\n0aZHeD2fAgMBAAECggEABjg0fXpUGtV4ZDmu9R7McoCp1FnNbVvBTX4PwXYsx12y\namDjza9mp/pCeDXqgsKqnxFPlTeiu7cW58WZ5KmGqZsYkhEKBB7l3O1kvGb/+p0m\nDTP5PkiWZpyEHYmEVcWd/HUcAoeG/NHE0ywFzRbNbbSh2SCyWwPlHISzfyAeXmD7\npKU39DKnZdtIGZymFagc/9YePCkijG3qX0jbdidPWQk9Zm27H9wzfBrKgZweb3FD\nEMMtV5zBGcsxqJufhFje148EkP6L8LuxcmIKz2VeIi8UKPkGo/AbNY9DGB1+dVay\nWt0NvYqPusfJFWhBlh5/cZLxZ0t38I7BvrgRXflgqQKBgQDXOq7n77Pg5XspdEzT\n0/ceakdur/m1z4uBt1MYMFTQrZgx671ZoD51GAgjRSRcm4UnH8ShAQOP26hSfb60\nmFSqJfpvx0/5WXlsXxm5dn/RnN4DKIge8khxTNtpVoCK335kqV4Rmy8PHhB2O7ea\ngO6ux4uajJ/6MAVaH0gqykLUOQKBgQDK+5MH9Lpl0f6OE3IOO1DN6mdlcziESqr5\nyGK1pCC3BoNWn7RD3saQ3faXuMnklNcwIPt28a3RcZCBEEKGD7jqW3Uaxnbpk7Vz\nBeYCBDwxbytYpvo1SKtjPo53ixAdVBwfkJytVQLqIalyHN3DeHaIbZgTzr7Ysbji\nvydLyhWQlwKBgC3ioO9ptxu3UO6hkM+IXSLq3ZfHhKEyQjfBccGybCKhH9VkwNWe\nyDIGkZWTZBEqRtT0fOMmaC//UH9lt4ahA0vTFPVHtNEgNjbYf49+p/l0TBC4T2zp\nknA1RoHKo1T4GOY1BY0TXJEIg9HxIU+bNUel2ylz2ZdpLXrtOGGHBYBhAoGBAI0o\ntu9pedclWmljjIXpKiCJSq56mmslohFjEYJQSY/+r4emOK6aVmyYb8zDbWPRPnTx\n+u6U09Q7rcqTjC++71HLmHyuWDPHzP/YskPkvheCwBo+xPIZP1cdQeZQhzxeKdCp\nuMuxuv0nu7bn7DDrrULjNEdSF9aKgZDubl1+g9CxAoGBALIfoLswAgMHzafknJKM\nzncOuHkvsfn/k3WGxUYmusALnR3GK4h2Uy7Sfrg7UbZ7NrU91qXYrlDvaZvCRplm\n8XjsBMZsI1i2S9sFVuUxMMojhpQjuxUKUKpvOBawQq5JJb+3UZGlld0MtpiuJX/5\nkmMSKvejAueK0a1bU4lvDoaW\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-zfxy9@ionic-angular-booking-firebase.iam.gserviceaccount.com",
+  "client_id": "114504189790740768241",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-zfxy9%40ionic-angular-booking-firebase.iam.gserviceaccount.com"
+}

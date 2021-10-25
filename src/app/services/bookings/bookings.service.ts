@@ -33,15 +33,21 @@ export class BookingsService {
   }
 
   fetchBookings(): Observable<Booking[]> {
+    let fetchedUserID: string;
+
     return this.authService.userId.pipe(
       take(1),
       switchMap((userId) => {
         if (!userId) {
           throw new Error('No user ID found!');
         }
-
+        fetchedUserID = userId;
+        return this.authService.token;
+      }),
+      take(1),
+      switchMap((token) => {
         return this.httpClient.get<{ [key: string]: IFetchedBooking }>(
-          `${environment.apiUrl}/bookings.json?orderBy="userId"&equalTo="${userId}"`
+          `${environment.apiUrl}/bookings.json?orderBy="userId"&equalTo="${fetchedUserID}"&auth=${token}`
         );
       }),
       map((response) => {
@@ -88,6 +94,7 @@ export class BookingsService {
   ): Observable<Booking[]> {
     let generatedId: string;
     let newBooking: Booking;
+    let fetchedUserID: string;
 
     return this.authService.userId.pipe(
       take(1),
@@ -95,11 +102,15 @@ export class BookingsService {
         if (!userId) {
           throw new Error('No user ID found!');
         }
-
+        fetchedUserID = userId;
+        return this.authService.token;
+      }),
+      take(1),
+      switchMap((token) => {
         newBooking = new Booking(
           Math.random().toString(),
           placeId,
-          userId,
+          fetchedUserID,
           placeTitle,
           placeImage,
           firstName,
@@ -109,7 +120,7 @@ export class BookingsService {
           dateTo
         );
         return this.httpClient.post<{ name: string }>(
-          `${environment.apiUrl}/bookings.json`,
+          `${environment.apiUrl}/bookings.json?auth=${token}`,
           {
             ...newBooking,
             id: null,
@@ -132,18 +143,25 @@ export class BookingsService {
   }
 
   cancelBooking(bookingId: string): Observable<Booking[]> {
-    return this.httpClient
-      .delete(`${environment.apiUrl}/bookings/${bookingId}.json`)
-      .pipe(
-        switchMap(() => {
-          return this.bookings;
-        }),
-        take(1),
-        tap((bookings) => {
-          this._bookings.next(
-            bookings.filter((booking) => booking?.id !== bookingId)
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.httpClient
+          .delete(
+            `${environment.apiUrl}/bookings/${bookingId}.json?auth=${token}`
+          )
+          .pipe(
+            switchMap(() => {
+              return this.bookings;
+            }),
+            take(1),
+            tap((bookings) => {
+              this._bookings.next(
+                bookings.filter((booking) => booking?.id !== bookingId)
+              );
+            })
           );
-        })
-      );
+      })
+    );
   }
 }
